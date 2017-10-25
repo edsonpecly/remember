@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>R - Sistema para Fidelização de Clientes</title>
+
+  <!-- css -->
+  <link href="{% static 'site/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'site/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+  <link href="{% static 'site/css/nivo-lightbox.css' %}" rel="stylesheet" />
+  <link href="{% static 'site/css/nivo-lightbox-theme/default/default.css' %}" rel="stylesheet" type="text/css" />
+  <link href="{% static 'site/css/animate.css' %}" rel="stylesheet" />
+  <link href="{% static 'site/css/style.css' %}" rel="stylesheet">
+
+  <!-- template skin -->
+  <link id="t-colors" href="{% static 'site/color/default.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: Appland
+    Theme URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
+    Author: BootstrapMade
+    Author URL: https://bootstrapmade.com
+  ======================================================= -->
+  
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}" /> 
+  
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+
+
+  <div id="wrapper">
+
+    <nav class="navbar navbar-custom" role="navigation">
+      <div class="container navigation">
+
+        <div class="navbar-header page-scroll">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+          <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'site/img/logo_r.png' %}" alt="" height="54" />
+                </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <div id="cart"></div>
+            </li>
+            <li class="active"><a href="#intro">Home</a></li>
+            <li><a href="#precos">Planos</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'home' %}">Acessar Sistema</a></li>
+            <li><a href="{% url 'logout' %}">Sair</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Entrar</a></li>
+			{% endif %}
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+
+      </div>
+      <!-- /.container -->
+    </nav>
+
+    <!-- Section: intro -->
+    <section id="intro" class="intro">
+      <div class="intro-content">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
+                <img src="{% static 'site/img/iphone.png' %}" class="img-responsive" alt="" />
+
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 slogan">
+              <div class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+                <h2>Sistema Remember</h2>
+                <p>
+                  A maneira mais fácil de fidelizar seus clientes! 
+
+                </p>
+                <p>
+                  Remember foi desenvolvido para proporcionar ao usuário, uma forma simples e objetiva de estreitar o contato direto com seus clientes, garantindo assim uma maior fidelidade e um aumento em suas conversões de venda
+                </p>
+              </div>
+              <div class="buttons">
+              	{% if user.is_authenticated %}
+                <a href="{% url 'home' %}" class="btn btn-success btn-lg wow fadeInLeft" data-wow-duration="2s" data-wow-delay="0.2s"><small> Olá, {{ user }}</small><br /> Acessar Sistema</a>
+                {% else %}
+                <a href="{% url 'cadastro_usuario' %}" class="btn btn-success btn-lg wow fadeInLeft" data-wow-duration="2s" data-wow-delay="0.2s"><small> Não tem cadastro?</small><br /> Cadastre-se</a>
+                <a href="{% url 'login' %}" class="btn btn-info btn-lg wow fadeInRight" data-wow-duration="3s" data-wow-delay="0.3s"><small> Já tem?</small><br /> Faça Login  </a>
+                {% endif %}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- /Section: intro -->
+    <div class="divider-short"></div>
+
+    <section id="content1" class="home-section">
+
+      <div class="container">
+        <div class="row text-center heading">
+          <h3>Funcionalidades Incríveis</h3>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="wow fadeInLeft" data-wow-delay="0.2s">
+              <img src="{% static 'site/img/cel.png' %}" alt="" class="img-responsive" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="wow fadeInRight" data-wow-delay="0.3s">
+              <div class="features">
+                <i class="fa fa-check fa-2x circled bg-skin float-left"></i>
+                <h5>Insterface Moderna</h5>
+                <p>
+                  Com design responsivo, Remember funciona em qualquer sistema operacional¹
+                </p>
+              </div>
+              <div class="features">
+                <i class="fa fa-check fa-2x circled bg-skin float-left"></i>
+                <h5>Fácil de Usar</h5>
+                <p>
+                  Remember é um sistema bem intuitivo, todas as suas funcionalidades foram desenvolvidas pensando no usuário
+                </p>
+              </div>
+              <div class="features">
+                <i class="fa fa-check fa-2x circled bg-skin float-left"></i>
+                <h5>Melhor Custo/Benefício</h5>
+                <p>
+                  Com funcionalidades voltadas para a fidelização de clientes, aumentar sua conversão de vendas é nosso principal objetivo. Assim fica fácil arcar com o investimento no Remember 
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- /Section: content -->
+
+    <div class="divider-short"></div>
+
+    <section id="content2" class="home-section">
+
+      <div class="container">
+        <div class="row text-center heading">
+          <h3><strong>R</strong>e<strong>m</strong>ember!</h3>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="wow fadeInLeft" data-wow-delay="0.2s">
+              <p>
+                Nosso principal objetivo é manter os clientes fiéis a sua empresa. Nossa central de avisos, não deixa você esquecer quando deve entrar em contato com eles novamente!
+              </p>
+              <p>
+                Está na hora de seu cliente voltar para realizar o serviço? Além de disponibilizar um aviso para não te deixar esquecer, Remember conta com uma funcionalidade de envio de mensagens para WhatsApp², deixando assim o contato com seu cliente mais fácil!
+              </p>
+              <div class="divider-short marginbot-30 margintop-30"></div>
+              <div class="features">
+                <i class="fa fa-android fa-2x circled bg-skin float-left"></i>
+                <h5>Android</h5>
+              </div>
+              <div class="features">
+                <i class="fa fa-apple fa-2x circled bg-skin float-left"></i>
+                <h5>Apple iOs</h5>
+              </div>
+              <div class="features">
+                <i class="fa fa-windows fa-2x circled bg-skin float-left"></i>
+                <h5>Windows</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="wow fadeInRight" data-wow-delay="0.3s">
+              <img src="{% static 'site/img/img2.png' %}" alt="" class="img-responsive" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+    <!-- /Section: content -->
+
+    <div class="divider-short"></div>
+    <section id="works" class="home-section text-center">
+      <div class="container">
+        <div class="row text-center heading">
+          <h3>Screenshots</h3>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+
+            <div class="row gallery-item">
+              <div class="col-md-3">
+                <a href="{% static 'site/img/works/tela_01.png' %}" title="Cadastro de Clientes" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/tela_01@2x.png' %}">
+								<img src="{% static 'site/img/works/tela_01.png' %}" class="img-responsive" alt="img">
+							</a>
+              </div>
+              <div class="col-md-3">
+                <a href="{% static 'site/img/works/tela_02.png' %}" title="Venda de Produto" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/tela_02@2x.png' %}">
+								<img src="{% static 'site/img/works/tela_02.png' %}" class="img-responsive" alt="img">
+							</a>
+              </div>
+              <div class="col-md-3">
+                <a href="{% static 'site/img/works/tela_03.png' %}" title="Configurações de Design" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/tela_03@2x.png' %}">
+								<img src="{% static 'site/img/works/tela_03.png' %}" class="img-responsive" alt="img">
+							</a>
+              </div>
+              <div class="col-md-3">
+                <a href="{% static 'site/img/works/tela_04.png' %}" title="Controle de Cadastros" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/tela_04@2x.png' %}">
+								<img src="{% static 'site/img/works/tela_04.png' %}" class="img-responsive" alt="img">
+							</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="precos" class="home-section paddingtop-40">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="callaction">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="cta-text">
+                      <h3>Sabe quanto custa para usar o Remember?</h3>
+                      <p>Baratinho! rs... Além de pagar pouco, você ainda nos ajuda a fazer uma boa ação³. Confira abaixo nossos planos:</p>
+           			  <div class="col-md-4">
+                			<center><img src="{% static 'site/img/ouro.png' %}"><br><br>
+                			<h5><strong>Plano OURO</strong></h5>
+                            <p><span class="alert alert-success">Economize 33%</span></p>
+                            <p><small>R$ 95,88/ano</small></p>
+                            <p>Equivalente a <strong>R$ 7,99/mês</strong></p></center>
+              			</div>
+                        <div class="col-md-4">
+                			<center><img src="{% static 'site/img/prata.png' %}"><br><br>
+                			<h5><strong>Plano Prata</strong></h5>
+                            <p><span class="alert alert-warning">Economize 18%</span></p>
+                            <p><small>R$ 29,70/trimestre</small></p>
+                            <p>Equivalente a <strong>R$ 9,90/mês</strong></p></center>
+              			</div>
+                        <div class="col-md-4">
+                			<center><img src="{% static 'site/img/bronze.png' %}"><br><br>
+                			<h5><strong>Plano Bronze</strong></h5>
+                            <p><span class="alert alert-info">Pagamentos Mensais</span></p>
+                            <p>Mensalidade</p>
+                            <p>de <strong>R$ 11,99</strong></p></center>
+              			</div>
+                        <div class="col-md-12">
+                        	<p></p>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="wow lightSpeedIn" data-wow-delay="0.1s">
+                    <div class="cta-btn">
+                       <h3>Gostou? Então não perca mais tempo &nbsp;&nbsp;<a href="{% url 'cadastro_usuario' %}" class="btn btn-skin btn-lg">Cadastre-se</a></h3>
+                   </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+
+
+      <div class="sub-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <ul class="social">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+              </ul>
+
+              <div class="wow fadeInLeft" data-wow-delay="0.1s">
+                <div class="text-left">
+                  <p>R® 2017 &copy;Copyright - All rights reserved.</p>
+                  <p><small>1 - Sistema e dispositivo precisam ser compatíveis com HTML5. 2 - É necessário que o dispositivo tenha instalado o aplicativo WhatsApp. 3 - 1% do valor de cada plano é destinado para uma instituição de caridade</small></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <div class="wow fadeInRight" data-wow-delay="0.1s">
+                <div class="text-right margintop-30">
+                  <div class="credits">
+                    <!--
+                      All the links in the footer should remain intact.
+                      You can delete the links only if you purchased the pro version.
+                      Licensing information: https://bootstrapmade.com/license/
+                      Purchase the pro version form: https://bootstrapmade.com/buy/?theme=Appland
+                    -->
+                    Template by <a href="https://bootstrapmade.com/" target="_blank">BootstrapMade</a> Adaptation <a href="https://www.facebook.com/edson.pecly" target="_blank">Edson Pecly</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+  <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+
+  <!-- Core JavaScript Files -->
+  <script src="{% static 'site/js/jquery.min.js' %}"></script>
+  <script src="{% static 'site/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'site/js/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'site/js/wow.min.js' %}"></script>
+  <script src="{% static 'site/js/jquery.scrollTo.js' %}"></script>
+  <script src="{% static 'site/js/nivo-lightbox.min.js' %}"></script>
+  <script src="{% static 'site/js/custom.js' %}"></script>
+
+</body>
+
+</html>

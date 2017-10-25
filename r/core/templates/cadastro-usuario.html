@@ -1,0 +1,568 @@
+{% if user.is_authenticated %}
+            <script language="JavaScript"> 
+				window.location="{% url 'home' %}"; 
+			</script>
+{% else %}
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>R - Sistema para Fidelização de Clientes</title>
+
+  <!-- css -->
+  <link href="{% static 'site/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'site/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+  <link href="{% static 'site/css/nivo-lightbox.css' %}" rel="stylesheet" />
+  <link href="{% static 'site/css/nivo-lightbox-theme/default/default.css' %}" rel="stylesheet" type="text/css" />
+  <link href="{% static 'site/css/animate.css' %}" rel="stylesheet" />
+  <link href="{% static 'site/css/style.css' %}" rel="stylesheet">
+
+  <!-- template skin -->
+  <link id="t-colors" href="{% static 'site/color/default.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: Appland
+    Theme URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
+    Author: BootstrapMade
+    Author URL: https://bootstrapmade.com
+  ======================================================= -->
+  
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}" /> 
+  
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+
+
+  <div id="wrapper">
+
+    <nav class="navbar navbar-custom" role="navigation">
+      <div class="container navigation">
+
+        <div class="navbar-header page-scroll">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+          <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'site/img/logo_r.png' %}" alt="" height="54" />
+                </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <div id="cart"></div>
+            </li>
+            <li class="active"><a href="#intro">Home</a></li>
+            <li><a href="{% url 'login' %}">Entrar</a></li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+
+      </div>
+      <!-- /.container -->
+    </nav>
+
+    <section id="intro" class="intro">
+    	
+      <div class="intro-content">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-lg-6 slogan">
+            <div class="wow fadeInLeft" data-wow-delay="0.2s">
+            <h2><strong>Cadastrar</strong></h2>
+              <p><form class="form-login" method="post">
+              	{% csrf_token %}
+                {% for error in form.non_field_errors %}
+                <br>
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				{{ error }}
+ 				</div>
+                {% endfor %}
+		        <div class="login-wrap">
+                	<font color="#000000"><strong>Nome de Usuário:</strong></font>
+		            {% render_field form.username class="form-control" placeholder="somente letras,números, @/./+/-/_" %}
+                    {% for error in form.username.errors %}
+       				<span class="help-block">{{ error }}</span>
+       				{% endfor %}
+                    <br>
+                    <font color="#000000"><strong>E-mail:</strong></font>
+                    {% render_field form.email class="form-control" placeholder="exemplo@exemplo.com" %}
+                    {% for error in form.email.errors %}
+       				<span class="help-block">{{ error }}</span>
+       				{% endfor %}
+                    <br>
+                    <font color="#000000"><strong>Seu Nome:</strong></font>
+		            {% render_field form.name class="form-control" placeholder="Ex.: Maria Ferreira" %}
+                    {% for error in form.name.errors %}
+       				<span class="help-block">{{ error }}</span>
+       				{% endfor %}
+                    <br>
+                    <font color="#000000"><strong>Nome da Empresa:</strong></font>
+		            {% render_field form.nome_empresa class="form-control" placeholder="Nome Fantasia ou Razão Social" %}
+                    {% for error in form.nome_empresa.errors %}
+       				<span class="help-block">{{ error }}</span>
+       				{% endfor %}
+                    <br>
+                    <font color="#000000"><strong>Telefone:</strong></font>
+		            {% render_field form.telefone class="form-control" placeholder="Fixo ou Celular, inclua o DDD" %}
+                    {% for error in form.telefone.errors %}
+       				<span class="help-block">{{ error }}</span>
+       				{% endfor %}
+                    <br>
+                    <font color="#000000"><strong>Qual vendedor?</strong></font>
+		            {% render_field form.vendedor class="form-control" %}
+                    {% for error in form.vendedor.errors %}
+       				<span class="help-block">{{ error }}</span>
+       				{% endfor %}
+		            <br>
+                    <font color="#000000"><strong>Senha:</strong></font>
+		            {% render_field form.password1 class="form-control" placeholder="Senha" %}
+                    {% for error in form.password1.errors %}
+       				<span class="help-block">{{ error }}</span>
+       				{% endfor %}
+                    <br>
+                    <font color="#000000"><strong>Repita a Senha:</strong></font>
+		            {% render_field form.password2 class="form-control" placeholder="Repita a Senha" %}
+                    {% for error in form.password2.errors %}
+       				<span class="help-block">{{ error }}</span>
+       				{% endfor %}
+                    <br>
+                    Ao clicar em Cadastrar, você declara que leu e concordou com os <a  data-toggle="modal" data-target="#myModal">Termos de Uso</a> e <a data-toggle="modal" data-target="#myModal2">Política de Privacidade</a> do Sistema R
+                    <hr>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none">
+                	<div class="modal-dialog">
+                    	<div class="modal-content">
+                        	<div class="modal-header">
+                            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="myModalLabel">Termos de Uso</h4>
+                            </div>
+                            <div class="modal-body">
+                            	<p><font color="#000000"><strong>Bem-vindo ao Sistema R</strong></font>. A seguir apresentamos a você (visitante) os Termos de Uso e Condições de Navegação, documento que relaciona as principais regras que devem ser observadas por todos que acessam este sistema ou utilizam suas ferramentas.</p>
+<p></p>
+<p>Ao visitar ou utilizar este sistema pressupõe-se a leitura e concordância com todos os termos abaixo e da plena capacidade civil do usuário em realizar a contratação do presente serviço.</p>
+<p></p>
+<p>R é um sistema que oferece uma plataforma online para seus usuários com o intuito de fidelizar seus clientes, através de técnicas e padrões de utilização.</p>
+<p></p>
+<p>Para os fins deste documento, devem se considerar as seguintes definições e descrições para seu melhor entendimento:</p>
+<p></p>
+Anti-Spam: Sistema que evita correspondências não desejadas, como publicidade em massa, pelo bloqueio de mensagens ou as movendo para pasta específica.
+<p></p>
+Aplicativo Spider: Programa desenvolvido para obter informações de modo automatizado na internet, navegando pela web (teia) como se fosse uma spider (aranha).
+<p></p>
+Conta de Acesso: Credencial de um visitante cadastrado que permite o acesso à área restrita e às funcionalidades exclusivas, que é definida pelo nome de usuário e senha.
+<p></p>
+Layout: Conjunto compreendido entre aparência, design e fluxos do Sistema.
+<p></p>
+Link: Terminologia para endereço de internet.
+<p></p>
+Logs: Registros de atividades do visitante efetuadas no Sistema.
+<p></p>
+Site: Denominação para páginas de internet.
+<p></p>
+Usuários: Pessoas que acessam ou interagem com as atividades oferecidas pelo Sistema R.
+<p></p>
+Webmastering: Compreende a criação, programação, desenvolvimento, controle e disponibilidade de páginas de internet.
+<p></p>
+<font color="#000000"><strong>1 – Acesso e Restrições de funcionalidade</strong></font>
+<p></p>
+1.1. Este sistema é dedicado à prestação de serviços para fidelizar clientes de acordo com seu hábito de uso.
+<p></p>
+1.2. Não é permitido aos usuários acessarem as áreas de programação do sistema, seu banco de dados ou qualquer outro conjunto de informações que faça parte da atividade de Webmastering, ficando sujeito quem o fizer à legislação penal brasileira e obrigados a reparar os danos que causarem.
+<p></p>
+1.3. Também não é autorizado realizar ou permitir engenharia reversa, nem traduzir, decompilar, copiar, modificar, reproduzir, alugar, sublicenciar, publicar, divulgar, transmitir, emprestar, distribuir ou, de outra maneira, dispor das ferramentas de consulta deste sistema e de suas funcionalidades.
+<p></p>
+1.4. Ao usuário não é permitido modificar pacotes de dados enviados ao Sistema R, seja pela alteração do endereço de IP de origem ou de retorno de dados ou pelo payload carregado, tal qual a aplicação de outras técnicas para mascarar, esconder, alterar ou falsear seu endereço de IP durante seu acesso ou tentativa de tal ou, de forma geral, interferir no funcionamento regular de conexão entre seu dispositivo e os servidores do sistema.
+<p></p>
+1.4.1. Também, o usuário não deverá submeter conteúdos ao Sistema R que contiverem programas ou scripts maliciosos, sob pena de suspensão ou cancelamento da conta de acesso, conforme disposto em 2.8.
+<p></p>
+1.5. Neste sistema é proibida a utilização, de aplicativos spider, ou de mineração de dados, de qualquer tipo ou espécie, além de outro aqui não tipificado, mas que atue de modo automatizado, tanto para realizar operações massificadas ou para quaisquer outras finalidades, sob aplicação da legislação penal brasileira e de reparar os danos que decorrerem desta utilização.
+<p></p>
+1.5.1. Este sistema foi desenvolvido para a utilização por seres humanos da plataforma R com a finalidade de fidelizar clientes por meio de sua interface, sendo escusos quaisquer outros usos que não sejam estes.
+<p></p>
+1.6. É ônus dos visitantes e usuários arcar com os meios necessários para navegar neste Sistema, incluindo os requisitos para o acesso à Internet.
+<p></p>
+<font color="#000000"><strong>2 – Informações gerais sobre o site e seu funcionamento</strong></font>
+<p></p>
+2.1. Este sistema é apresentado ao público da web na maneira como está disponível, podendo passar por constantes aprimoramentos e atualizações, não ficando obrigado aos seus desenvolvedores a manter uma estrutura ou layout, se não por sua própria conveniência.
+<p></p>
+2.2. Os administradores do R envidam seus esforços para a disponibilidade contínua e permanente do sistema, ficando sujeito, todavia, a eventos extraordinários, como desastres naturais, falhas ou colapsos nos sistemas centrais de comunicação e acesso à internet ou fatos de terceiro, que fogem de sua esfera de vigilância e responsabilidade.
+<p></p>
+2.3. Os administradores do R não se responsabilizam por qualquer dano, prejuízo ou perda no equipamento dos usuários causados por falhas no sistema, no servidor ou na conexão à Internet, ainda que decorrentes de condutas de terceiros, inclusive por ações de softwares maliciosos como vírus, cavalos de tróia, e outros que possam, de algum modo, danificar o equipamento ou a conexão dos visitantes e usuários em decorrência do acesso, utilização ou navegação neste sistema, bem como a transferência de dados, arquivos, imagens, textos, áudios ou vídeos contidos no mesmo.
+<p></p>
+2.4. Igualmente, os Administradores do R não serão responsáveis por danos emergentes ou lucros cessantes que decorrerem de indisponibilidade, erros, falhas, bugs e vulnerabilidades do Sistema R, incluindo a funcionalidade da plataforma ou a integridade e disponibilidade dos dados submetidos pelos usuários.
+<p></p>
+2.5. Os usuários não possuem qualquer direito para exigir a disponibilidade do sistema conforme melhor lhes convêm, tampouco poderão pleitear indenização ou reparação de danos em caso deste sistema permanecer fora do ar, independente da motivação.
+<p></p>
+2.6. Os administradores do R não detém qualquer responsabilidade pela navegação dos usuários nos links externos contidos no sistema, sendo o dever deles a leitura dos Termos de Uso e Política de Privacidade do site acessado e agir conforme o determinado. Também serão os principais responsáveis caso sobrevier algum dano ou prejuízo, uma vez que a navegação segura cabe aos mesmos e que o Sistema R apenas apontou o link cabendo ao interessado a visita, ou não, ao site.
+<p></p>
+2.6.1. Os administradores do R não verificam, controlam, aprovam ou garantem a adequação ou exatidão das informações ou dados disponibilizados em tais links, não sendo, portanto, responsáveis por prejuízos, perdas ou danos ocorridos pela visita de tais sites, cabendo ao usuário verificar a confiabilidade das informações e dados ali exibidas antes de utilizá-los.
+<p></p>
+2.6.2. Perdas, danos ou prejuízos ocasionados por atrasos, defeitos, erros ou omissões que possam existir nos sistemas ou serviços disponibilizados pelos sites referidos acima, não são de responsabilidade dos administradores do R, mas sim de seu respectivo controlador.
+<p></p>
+2.7. Os administradore do R não se responsabilizam pelos atos praticados por usuários em seu sistema, devendo cada um ser imputado de acordo com a qualidade do uso da plataforma.
+<p></p>
+2.8. Os administradores do R poderão suspender ou excluir as contas de acesso de seus usuários que descumprirem os presentes Termos de Uso, que transgridam a lei pelo uso do sistema R ou procedam de forma não ética, a qualquer tempo e sem a necessidade de aviso prévio, o que não dará direito a nenhuma indenização ou ressarcimento, sob qualquer pretexto.
+<p></p>
+<font color="#000000"><strong>3 – Comunicação do sistema com seus usuários</strong></font>
+<p></p>
+3.1. Os administradores poderão utilizar todos os canais de comunicação fornecidos e autorizados com seus usuários, nas suas mais diversas modalidades, seja e-mail, ligação telefônica ou envio por SMS.
+<p></p>
+3.1.1. A responsabilidade pelo recebimento dos comunicados é exclusiva dos usuários, por isso é indispensável que sempre forneçam os dados corretos e precisos, além de os manterem atualizados.
+<p></p>
+3.1.2. É igualmente de suas alçadas deixarem seus sistemas de anti-spam configurados de modo que não interfiram no recebimento dos comunicados e materiais do Sistema R, não sendo aceitável nenhuma escusa caso não tenha tido acesso a algum e-mail em virtude desse bloqueio ou filtro similar.
+<p></p>
+<font color="#000000"><strong>4 – Privacidade dos visitantes e usuários no sistema</strong></font>
+<p></p>
+4.1. O Sistema R possui documento próprio, denominado Política de Privacidade, que regula o tratamento dado às informações de cadastro e demais informações e dados coletados.
+<p></p>
+4.2. A Política de Privacidade é parte integrante e inseparável dos Termos de Uso e Condições de Navegação deste Sistema, e pode ser acessada no link encontrado em seu rodapé.
+<p></p>
+4.3. Caso alguma disposição da Política de Privacidade conflitar com qualquer outra do presente documento, deverá prevalecer o descrito na norma mais específica.
+<p></p>
+<font color="#000000"><strong>5 – Obrigações do Sistema R</strong></font>
+<p></p>
+5.1. Os administradores do R se obrigam com os visitantes e usuários a:
+<p></p>
+5.1.1. Manter o ambiente digital seguro, tal qual suas operações de gerenciamento e dados registrados para tanto, salvo por ato destrutivo de terceiro que vá além dos esforços empenhados e do estado atual da tecnologia, hipótese que não se responsabilizará por danos oriundos dessa prática danosa.
+<p></p>
+5.1.2. Preservar a funcionalidade do sistema, com links não quebrados, utilizando layout que respeita a usabilidade, segurança e navegabilidade, facilitando a navegação sempre que possível e garantindo um ambiente confiável para processar suas operações.
+<p></p>
+5.1.3. Exibir as funcionalidades de maneira clara, completa, precisa e suficiente de modo que exista a exata percepção das operações realizadas.
+<p></p>
+5.1.4. Garantir, por meio do estado da técnica disponível, o sigilo e confidencialidade dos dados inseridos nas funcionalidades oferecidas em seu sistema, somente sendo acessíveis a quem o usuário declinar, além de si próprio.
+<p></p>
+<font color="#000000"><strong>6 – Obrigações do usuário</strong></font>
+<p></p>
+6.1. Os usuários se obrigam a realizar uma navegação com retidão ética, sempre respeitando as condições que regem a utilização do sistema.
+<p></p>
+6.2. Ao fornecer dados e informações, os usuários se obrigam a fazê-lo sempre com compromisso de veracidade e autenticidade, sob pena da aplicação das penas da lei, de indenizar a quem causar dano e de ter a conta de acesso do presente sistema excluída.
+<p></p>
+6.3. Na incidência de danos ao sistema ou a terceiros, o responsável se compromete a arcar com todas as obrigações de indenizar o sujeito lesado, não devendo Os administradores do R responderem por tais prejuízos.
+<p></p>
+6.4. Os usuários devem utilizar os recursos do presente sistema para as finalidades que foi constituído, sob pena da aplicação das penas da lei, de indenizarem a quem causarem dano e de terem a conta de acesso do presente sistema excluída.
+<p></p>
+6.5. Também, os usuários devem manter o sigilo dos dados de sua conta de acesso, sua senha e demais dispositivos de autenticação em relação a terceiros, não os divulgando ou compartilhando com quem quer que seja, sob pena da exclusão da conta e de ter de ressarcir os danos que sobrevierem dessa divulgação indevida.
+<p></p>
+6.5.1. Caso o usuário suspeite que a confidencialidade de sua senha foi quebrada ou que houve o comprometimento de algum dispositivo de autenticação, este deverá proceder sua troca ou atualização o mais rápido possível. Se não conseguir acessar a Internet para obter suporte, deverá buscar atendimento dentre os canais disponíveis.
+<p></p>
+6.6. Reconhecer como válidos, legítimos e eficazes todos os atos jurídicos praticados mediante sua conta de acesso no sistema R, não podendo alegar repúdio quanto à forma no momento da contratação do presente serviço ou das operações realizadas posteriormente.
+<p></p>
+6.7. O usuário se obriga em defender, indenizar e manter Os administradores do R e seus colaboradores livres de dano de qualquer reivindicação ou solicitação decorrentes do mau uso da plataforma ou da violação aos presentes Termos de Uso, especialmente na esfera judicial.
+<p></p>
+<font color="#000000"><strong>7 – Direitos autorais e propriedade intelectual de sistema R</strong></font>
+<p></p>
+7.1. O uso comercial da expressão sistema R como marca, nome empresarial ou nome de domínio, além dos conteúdos das telas de sistema, assim como os programas, bancos de dados, redes e seus arquivos são de propriedade dos administradores do R e estão protegidos pelas leis e tratados internacionais de direito autoral, marcas, patentes, modelos e desenhos industriais.
+<p></p>
+7.2. Ao acessar este sistema, os usuários declaram que irão respeitar todos os direitos de propriedade intelectual e os decorrentes da proteção de marcas, patentes e/ou desenhos industriais, depositados ou registrados em nome dos administradores do R, bem como de todos os direitos referentes a terceiros que porventura estejam, ou estiveram, de alguma forma, disponíveis no sistema. O simples acesso ao sistema não confere a estes qualquer direito ao uso dos nomes, títulos, palavras, frases, marcas, patentes, obras literárias, artísticas, lítero-musicais, imagens, dados e informações, dentre outras, que nele estejam ou estiveram disponíveis.
+<p></p>
+7.3. A reprodução dos conteúdos descritos anteriormente está proibida, salvo com prévia autorização por escrito dos administradores do R ou caso se destinem ao uso exclusivamente pessoal e sem que em nenhuma circunstância os visitantes e usuários adquiram qualquer direito sobre os mesmos.
+<p></p>
+7.4. É permitido fazer somente o arquivo temporário deste sistema e de seu conteúdo, sendo vedada sua utilização para finalidades comerciais, publicitárias ou qualquer outra que contrarie a realidade para o qual foi concebido, conforme definido neste documento. Restam igualmente proibidas a reprodução, distribuição e divulgação, total ou parcial, dos textos, figuras, gráficos que compõem o presente sistema, sem prévia e expressa autorização dos administradores do R, sendo permitida somente a impressão de cópias para uso e arquivo pessoal, sem que sejam separadas as partes que permitam dar o fiel e real entendimento de seu conteúdo e objetivo.
+<p></p>
+7.5. Os usuários assumem toda e qualquer responsabilidade, de caráter civil e/ou criminal, pela utilização indevida das informações, textos, gráficos, marcas, obras, imagens, enfim, de todo e qualquer direito de propriedade intelectual ou industrial deste sistema.
+<p></p>
+7.6. Qualquer outro tipo de utilização de material autorizado, inclusive para fins editoriais, comerciais ou publicitários, só poderá ser feito mediante prévio e expresso consentimento dos administradores do R. Os usuários estão cientes, através deste item, que o uso comercial não autorizado poderá incorrer em infrações cíveis e criminais, por estar infringindo a lei dos direitos autorais.
+<p></p>
+7.7. Qualquer reutilização do material autorizado deverá ser objeto de uma nova autorização dos administradores do R.
+<p></p>
+7.8. A autorização para utilização do material solicitado não poderá ser transferida a terceiros, mesmo que vinculados ao sujeito autorizado por alguma razão.
+<p></p>
+7.9. Qualquer utilização não contemplada na mencionada autorização será considerada como uma violação dos direitos de autor e sujeita às sanções cabíveis na Lei 9.610, de 19 de fevereiro de 1998, que protege os direitos autorais no Brasil.
+<p></p>
+7.10. A utilização das funcionalidades oferecidas se dará na forma de prestação de serviço, não conferindo ao usuário nenhum direito sobre o software utilizado pelos administradores do R ou de suas estruturas de informática que sustentam as aplicações de internet.
+<p></p>
+7.11. A eventual retirada de qualquer conteúdo ou funcionalidade deste sistema, em decorrência de alguma reclamação, deverá ser sempre compreendida como uma demonstração de nossa intenção de evitar dissabores e, jamais, como reconhecimento de culpa ou de qualquer infração pelos administradores do R a direito de terceiro.
+<p></p>
+7.12. Caso o visitante ou usuário enviar conteúdo para Os administradores do R por meio do sistema R ou pelos canais divulgados que diga respeito a ideias para novos produtos, melhorias nos produtos já existentes, campanhas publicitárias ou qualquer outra ação de marketing, elas deixarão de pertencer ao patrimônio imaterial do visitante ou do usuário, ingressando no dos administradores do R, nada podendo reclamar neste sentido, sobretudo recompensa pecuniária pelo que foi enviado ou revisão nos modelos usados.
+<p></p>
+<font color="#000000"><strong>8 – Das funcionalidades do sistema sistema R</strong></font>
+<p></p>
+8.1. O sistema R oferece uma série de funcionalidades para fielização de clientes, a exemplo, mas não se limitando a:
+<p></p>
+Cadastros de clientes, profissionais, produtos e serviços;
+<p></p>
+Gerenciamento de vendas;
+<p></p>
+Gerenciamentos de retornos e hábitos de consumo;
+<p></p>
+8.2. Os administradores do R se valem de mecanismos de salvaguarda e proteção compatíveis com o estado atual da técnica para evitar perda de dados, mesmo em casos de incidentes ou desastres. No entanto, é o usuário quem deve tomar as cautelas necessárias, como a efetuação de backups periódicos dos dados inseridos para evitar prejuízos em caso de perda, inconsistência ou desastres que possam comprometer a base de dados do sistema R.
+<p></p>
+8.2.1. Os administradores do R não se responsabilizam nos casos em que houver exclusão ou modificação acidental dos dados pelo usuário ou de quem utilizar sua conta de acesso indevidamente, tal qual não possui nenhuma obrigação para restaurar os dados em seu estágio anterior.
+<p></p>
+8.2.2. De igual forma, Os administradores do R não estão obrigados a reparar algum prejuízo ocorrido pela inépcia de seus usuários em utilizar a ferramenta e a contratação dos serviços, o que não implica no dever de prestar qualquer espécie de treinamento sobre as funcionalidades oferecidas.
+<p></p>
+8.3. Em regra, a utilização das funcionalidades necessita de pagamento prévio, salvo nos casos específicos e identificados pela própria plataforma.
+<p></p>
+8.4. Os valores pagos para a utilização dos módulos não são passíveis de devolução, ainda que haja desistência de uso das funcionalidades pelo usuário.
+<p></p>
+8.5. Para acessar a ferramenta é essencial a conectividade com a internet. Caso o usuário não disponha da conexão necessária, Os administradores do R não são obrigados a restituir nenhum valor já pago a título de indenização.
+<p></p>
+8.6. Em cumprimento dos requisitos legais sobre a Lei de Transparência Fiscal 12.741/2012, o sistema sistema R opera seguindo o cálculo médio e a base de informação indicada e atualizada pelo IBPT (Instituto Brasileiro de Planejamento Tributário) para exibição da carga tributária em cupons e notas fiscais, sendo esta uma fonte idônea de informação que assume o cumprimento da lei em suas orientações e informações, não cabendo portanto edições por parte dos usuários e cabendo a este a decisão de adotar o sistema R sob estas indicações.
+<p></p>
+8.7. Os termos específicos do contrato estabelecerão os níveis de serviço a serem cumpridos pelos administradores do R e as hipóteses de ressarcimento caso o sistema fique indisponível.
+<p></p>
+8.8. Os administradores do R se reservam no direito de não publicar ou excluir conteúdos enviados pelos usuários, a qualquer tempo, sem prévio aviso e nenhum direito a indenização a quem quer que seja, que contiverem:
+<p></p>
+Ofensa à honra, imagem, reputação e dignidade de terceiros;<br>
+Pornografia, pedofilia, e outras modalidades de satisfação sexual;<br>
+Racismo ou discriminação de qualquer natureza;<br>
+Bullying, Stalking ou qualquer outra espécie de constrangimento ilegal ou assédio;<br>
+Manifesta violação a direito autoral ou direito de imagem;<br>
+Utilização de marcas, símbolos, logotipos ou emblemas de terceiros;<br>
+Instigação ou apologia à prática de crimes, como tráfico ou uso de entorpecentes, estupro, homicídio, estelionato, dentre outros;<br>
+Uso da violência, disseminação de ódio ou qualquer outra forma de agressão ao bem estar físico de alguém;<br>
+Atividade comercial similar ao sistema R ou que utilize a plataforma para angariar recursos por publicidade de terceiros ao invés de praticar a interação regular do ambiente;<br>
+Erros ou suspeita de equívocos.<br>
+<p></p>
+8.9. Os visitantes poderão se valer do canal de ‘Fale Conosco’ toda vez que presenciarem ou verificarem conteúdo impróprio no site.
+<p></p>
+8.9.1. A denúncia será sigilosa e preservará a identidade do visitante.
+<p></p>
+8.10. O usuário poderá excluir sua conta de acesso a qualquer tempo, sem necessidade de pagamento ou indenização aos administradores do R. Recomenda-se que o usuário efetue a salvaguarda de seus dados antes de cancelamento da conta de acesso.
+<p></p>
+8.11. Os administradores do R se reservam o direito de inativar as contas de usuários que não realizarem nenhum acesso e/ou movimento em seu domínio nos prazo de 180 (cento e oitenta) dias corridos, sendo que nestes casos os dados e domínio da conta usuária serão resguardados e mantidos sob reserva pelo prazo de 180 (cento e oitenta) dias corridos a partir da inativação, podendo o usuário a qualquer momento, dentro deste prazo, reativar sua conta pelos mecanismos apontados pelos processos internos do sistema sistema R.
+<p></p>
+8.11.1. Caso o usuário não solicite a reativação dentro do prazo de 180 (cento e oitenta) dias após a sua inativação, Os administradores do R efetuarão a exclusão completa do usuário e seus dados do sistema sistema R além da liberação do domínio para o uso de novos usuários, não cabendo volta, recuperação ou backup após esta ação.
+<p></p>
+8.12. Os administradores do R se reservam o direito de excluir as contas de usuários que não realizarem a confirmação de sua instalação e cadastro dentro do prazo de 21 (vinte e um dias) corridos a partir da data de seu cadastramento, sendo que dentro deste prazo o usuário será informado e lembrado semanalmente através do seu e-mail que necessita confirmá-la, visto que não o tenha feito até então.
+<p></p>
+<font color="#000000"><strong>9 – Atendimento do sistema R</strong></font>
+<p></p>
+9.1. Caso os haja alguma dúvida sobre as condições estabelecidas neste termo ou qualquer documento do website, por favor, envie um e-mail para adm.rsistema@gmail.com. Será um prazer ajudar a esclarecer qualquer de suas dúvidas.
+<p></p>
+<strong>10 – Modificações destes Termos e Condições</strong>
+<p></p>
+10.1. Os presentes Termos de Uso e Condições de Navegação estão sujeitos a constante melhoria e aprimoramento. Assim, Os administradores do R se reservam o direito de modificar a qualquer momento, de forma unilateral, o presente documento e sua Política de Privacidade.
+<p></p>
+<font color="#000000"><strong>11 – Disposições Gerais</strong></font>
+<p></p>
+11.1. Haverá cancelamento ao uso da plataforma sistema R na hipótese de decretação de falência ou processamento de recuperação judicial dos administradores do R ou do próprio usuário, se pessoa jurídica; se pessoa física, a declaração de insolvência civil.
+<p></p>
+11.2. O usuário está de acordo que Os administradores do R poderão ceder os direitos e obrigações decorrentes destes Termos de Uso para qualquer outra empresa que seja sua controladora, controlada ou a ela coligada, total ou parcialmente, conforme sua conveniência e interesse, sem a necessidade de aviso prévio ou obrigação de indenização ou ressarcimento, sob qualquer pretexto.
+<p></p>
+11.3. A tolerância do eventual descumprimento de quaisquer das cláusulas e condições do presente instrumento não constituirá novação das obrigações aqui estipuladas e tampouco impedirá ou inibirá a exigibilidade das mesmas a qualquer tempo.
+<p></p>
+11.4. Este sistema tem como base o horário oficial de Brasília.
+<p></p>
+11.5. Caso alguma disposição destes Termos de Uso seja considerada ilegítima por autoridade da localidade que o visitante ou usuário acessa o sistema, ou mantém vínculo, as demais condições permanecerão em pleno vigor e efeito até segunda ordem.
+<p></p>
+<font color="#000000"><strong>12 – Lei aplicável e Jurisdição</strong></font>
+<p></p>
+12.1. Os Termos e Condições de Uso aqui descritos são interpretados segundo a legislação brasileira, no idioma português, sendo eleito o Foro da Comarca de Maringá no Estado do Paraná para dirimir qualquer litígio, questão ou dúvida superveniente, com expressa renúncia de qualquer outro, por mais privilegiado que seja.
+<p></p>
+<strong>Atualização</strong>: 23 de Outubro de 2017.
+                            </div>
+                            <div class="modal-footer">
+                            	<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true" style="display: none">
+                	<div class="modal-dialog">
+                    	<div class="modal-content">
+                        	<div class="modal-header">
+                            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="myModalLabel2">Política de Privacidade</h4>
+                            </div>
+                            <div class="modal-body">
+                            	<p>Como parte integrante dos Termos de Uso e Condições de Navegação do <strong>Sistema R</strong>, este documento, denominado Política de Privacidade, tem por finalidade estabelecer as regras sobre a obtenção, uso e armazenamento dos dados e informações coletadas dos usuários, além do registro de suas atividades.
+<p></p>
+<font color="#000000"><strong>1 – Definições:</strong></font>
+<p></p>
+1.1. Para fins desta Política de Privacidade, aplicam-se as seguintes definições:
+<p></p>
+Cookies: Arquivos enviados pelo servidor do <strong>Sistema R</strong> para o computador dos usuários, com a finalidade de identificar o computador e obter dados de acesso, como páginas navegadas ou links clicados, permitindo, desta forma, personalizar a navegação dos usuários de acordo com o seu perfil.
+<p></p>
+Dados Anonimizados: Dados considerados sem a identificação de seu proprietário ou vinculação de quem se aponta. Dados sem rosto.
+<p></p>
+Dados Pessoais: Dados que dizem respeito à identificação de uma pessoa, compreendendo dados cadastrais e dados sensíveis.
+<p></p>
+Dados Sensíveis: Dados que possam discriminar o titular de alguma forma, seja pelo comportamento ou que diz respeito diretamente à personalidade, escolhas, gostos e preferências do indivíduo, a exemplo de convicção religiosa, política, filosófica, moral, da origem racial ou étnica, orientação sexual ou dados médicos, de saúde, genéticos ou biométricos.
+<p></p>
+<strong>Administradores do Sistema</strong>: Denominação utilizada nesta Política de Privacidade para identificar a detentora e proprietária deste sistema, representada legalmente por seu fundador, Edson Ferreira Pecly, pessoa natural, inscrita no CPF 057.407.259-41, residente na cidade de Maringá, estado do Paraná, à Rua Dona Aziza Mariana Jorge, 446, Parque das Grevíleas, sob o CEP 87025-140.
+<p></p>
+IP: Abreviatura de Internet Protocol. É um conjunto de números que identifica o computador dos usuários na Internet.
+<p></p>
+Logs: Registros de atividades dos e usuários efetuadas no <strong>Sistema R</strong>.
+<p></p>
+<strong>Sistema R</strong>: Designa o sistema o qual o usuário se utiliza aqui neste domínio e seus subdomínios.
+<p></p>
+Usuários: Pessoas que acessam ou interagem com as atividades oferecidas pelo <strong>Sistema R</strong>.
+<p></p>
+Web beacons: Linhas de programação em páginas HTML que tem como finalidade obter detalhes da navegação do usuário, a exemplo de quanto tempo ficou com um site aberto, qual endereço visitado em seguida, dentre outros.
+<p></p>
+<strong>2 – Obtenção dos Dados e Informações:</strong>
+<p></p>
+2.1. Os dados e informações serão obtidos quando os usuários interagirem com as diversas funcionalidades existentes no <strong>Sistema R</strong>. São exemplos de interação quando fornecem informações voluntariamente, dados de cadastro ou inserem dados sobre produtos, serviços e transações realizadas.
+<p></p>
+<font color="#000000"><strong>3 – Armazenamento dos Dados e Informações:</strong></font>
+<p></p>
+3.1. Todos os dados e informações coletados dos usuários serão incorporados ao banco de dados do <strong>Sistema R</strong>, sendo seu responsável os <strong>Administradores do Sistema</strong>.
+<p></p>
+3.2. Os dados e informações coletados estarão armazenados em ambiente seguro, observado o estado da técnica disponível, e somente poderão ser acessadas por pessoas qualificadas e autorizadas pelos <strong>Administradores do Sistema</strong>.
+<p></p>
+3.3. Considerando que nenhum sistema de segurança é absolutamente seguro, os <strong>Administradores do Sistema</strong> se eximem de quaisquer responsabilidades por eventuais danos e/ou prejuízos decorrentes de falhas, vírus ou invasões do banco de dados do <strong>Sistema R</strong>, salvo nos casos comprovados de dolo ou culpa.
+<p></p>
+<font color="#000000"><strong>4. Uso dos Dados e Informações:</strong></font>
+<strong></strong>
+4.1. Os dados e informações coletados dos usuários poderão ser utilizados para as seguintes finalidades:
+<p></p>
+Responder a eventuais dúvidas e solicitações dos usuários;<br>
+Cumprimento de ordem legal ou judicial;<br>
+Realizar operações em nome do usuário a partir de comandos executados na plataforma do R, incluindo a divulgação a terceiro sempre que indispensável, por exemplo, emitir uma Nota fiscal com seu certificado digital;<br>
+Para garantir a sua segurança no uso do Sistema R e para segurança de todos os usuários;<br>
+Constituir, defender ou exercer regularmente direitos em âmbito judicial ou administrativo;<br>
+Elaborar estatísticas gerais, para identificação do perfil dos usuários e desenvolvimento de campanhas dos <strong>Administradores do Sistema</strong>, mas sem realizar identificação pessoal. Terceiros poderão efetuar o registro das informações e o agrupamento dos dados;<br>
+Determinação de tendências de comércio e necessidades de fornecedores e consumidores por produtos ou serviços;<br>
+Manter atualizados os cadastros dos usuários para fins de contato por telefone, correio eletrônico, SMS, mala direta ou por outros meios de comunicação;<br>
+Informar a respeito de novidades, promoções e eventos dos <strong>Administradores do Sistema</strong>, especialmente do Sistema R;<br>
+Aumentar a visibilidade das campanhas de arrecadação de fundos e projetos ativos no <strong>Sistema R</strong>;<br>
+Proporcionar melhorias no conteúdo e serviços prestados.
+<p></p>
+4.2. A base de dados formada pelos <strong>Administradores do Sistema</strong> através da coleta dos dados do <strong>Sistema R</strong> não será compartilhada, vendida, cedida, transferida, informada ou alugada a terceiros.
+<p></p>
+4.2.1. Em casos específicos, algumas informações anonimizadas poderão ser compartilhadas com parceiros comerciais, em especial, nas ações de marketing com participação relevante dos <strong>Administradores do Sistema</strong>.
+<p></p>
+4.2.2. Sempre que necessário para a total execução de serviços contratados, os <strong>Administradores do Sistema</strong> poderão fornecer informações anonimizadas ou dados de seus usuários aos contratados correspondentes, tomando as medidas legais e técnicas de modo a tornar o fornecimento de dados ou informações tão seguro quanto possível.
+<p></p>
+4.2.3. Os <strong>Administradores do Sistema</strong> não são responsáveis pelo mau uso que parceiros comerciais ou contratados fizerem das informações fornecidas, pois está fora de sua esfera de vigilância e controle.
+<p></p>
+4.3. Dados adquiridos somente poderão ser acessados por profissionais devidamente autorizados pelos <strong>Administradores do Sistema</strong>, respeitando a necessidade a que serão submetidos, a relevância para os objetivos do <strong>Sistema R</strong> e aos interesses dos usuários, além de preservar a privacidade dos mesmos.
+<p></p>
+4.4. Caso o usuário deixe de utilizar os serviços oferecidos pelo <strong>Sistema R</strong>, os <strong>Administradores do Sistema</strong> poderão, para fins de auditoria e preservação de direitos, permanecerem com o registro de dados e informações do usuário, pelo período máximo de 5 (cinco) anos, com a faculdade de excluí-los definitivamente segundo sua conveniência.
+<p></p>
+4.5. O usuário poderá exigir dos <strong>Administradores do Sistema</strong> os dados que estão registrados que lhe dizem respeito, da mesma forma que poderá solicitar a alteração ou exclusão dos mesmos. Para isso, deve entrar em contato através dos meios disponibilizados pelo <strong>Sistema R</strong>, caso não ofereça a funcionalidade correspondente.
+<p></p>
+4.6. Os <strong>Administradores do Sistema</strong> somente divulgarão as informações ou dados pessoais, caso exista consentimento expresso do usuário, quando houver determinação legal ou judicial.
+<p></p>
+<font color="#000000"><strong>5. Registro de Atividades:</strong></font>
+<p></p>
+5.1. Os <strong>Administradores do Sistema</strong> registrarão todas as atividades efetuadas pelos usuários no <strong>Sistema R</strong>, por meio de logs, incluindo:
+<p></p>
+IP dos usuários;<br>
+Ações realizadas pelos usuários no <strong>Sistema R</strong>;<br>
+Páginas acessadas;<br>
+Datas e horários de toda as ações e acesso a cada página do <strong>Sistema R</strong>;<br>
+Session ID (quando disponível).
+<p></p>
+5.2. Os registros mencionados no item 5.1 poderão ser utilizados pelos <strong>Administradores do Sistema</strong> em casos de investigação de fraudes ou de alterações indevidas em seus sistemas e cadastros.
+<p></p>
+<font color="#000000"><strong>6. Cookies e Outras Tecnologias de Obtenção de Dados:</strong></font>
+<p></p>
+6.1. O <strong>Sistema R</strong> poderá fazer o uso de cookies, cabendo aos usuários configurarem o seu navegador de Internet, caso deseje bloqueá-los. Nesta hipótese, algumas funcionalidades do <strong>Sistema R</strong> poderão ser limitadas.
+<p></p>
+6.2. O sistema também poderá utilizar web beacons para coletar dados de comportamento dos usuários das páginas, onde a instalação de arquivos nos equipamentos não é necessária.
+<p></p>
+6.3. Outras tecnologias poderão ser utilizadas para a obtenção de dados de navegação pelo usuário, no entanto, os termos desta política e as opções do usuário a respeito de sua coleta e armazenamento serão respeitados.
+<p></p>
+<font color="#000000"><strong>7. Disposições Gerais:</strong></font>
+<p></p>
+7.1. As disposições constantes desta Política de Privacidade poderão ser atualizadas ou modificadas a qualquer momento, cabendo aos usuários verificá-la sempre que acessar o <strong>Sistema R</strong>. Navegar ou interagir com o <strong>Sistema R</strong> após atualizações/modificações será interpretado como uma concordância tácita às novas regras aplicadas.
+<p></p>
+7.2. Caso os haja alguma dúvida sobre a nossa Política de Privacidade, por favor, entre em contato através do e-mail adm.rsistema@gmail.com. Será um prazer te ajudar!
+<p></p>
+<font color="#000000"><strong>8. Lei Aplicável e Jurisdição</strong></font>
+<p></p>
+8.1. A presente Política de Privacidade será interpretada segundo a legislação brasileira, no idioma português, sendo eleito o Foro da Comarca de Maringá, Estado do Paraná, para dirimir qualquer litígio, questão ou dúvida superveniente, com expressa renúncia de qualquer outro, por mais privilegiado que seja.
+<p></p>
+<font color="#000000"><strong>Atualização</strong></font>: 23 de outubro de 2017.
+                            </div>
+                            <div class="modal-footer">
+                            	<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="registration">
+                	<button class="btn btn-info btn-block" type="submit">Cadastrar</button>
+                    <a href="{% url 'login' %}" class="btn btn-success btn-block">Voltar ao login</a>
+                </div>
+                
+		        </div>
+		
+		      </form>
+              </p>
+              
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="wow fadeInRight" data-wow-delay="0.3s"><br><br><br><br>
+              <img src="{% static 'site/img/ipad.png' %}" alt="" class="img-responsive" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+    <!-- /Section: content -->
+
+    <footer>
+
+      <div class="sub-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <ul class="social">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+              </ul>
+
+              <div class="wow fadeInLeft" data-wow-delay="0.1s">
+                <div class="text-left">
+                  <p>R® 2017 &copy;Copyright - All rights reserved.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <div class="wow fadeInRight" data-wow-delay="0.1s">
+                <div class="text-right margintop-30">
+                  <div class="credits">
+                    <!--
+                      All the links in the footer should remain intact.
+                      You can delete the links only if you purchased the pro version.
+                      Licensing information: https://bootstrapmade.com/license/
+                      Purchase the pro version form: https://bootstrapmade.com/buy/?theme=Appland
+                    -->
+                    Template by <a href="https://bootstrapmade.com/" target="_blank">BootstrapMade</a> Adaptation <a href="https://www.facebook.com/edson.pecly" target="_blank">Edson Pecly</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+  <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+
+  <!-- Core JavaScript Files -->
+  <script src="{% static 'site/js/jquery.min.js' %}"></script>
+  <script src="{% static 'site/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'site/js/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'site/js/wow.min.js' %}"></script>
+  <script src="{% static 'site/js/jquery.scrollTo.js' %}"></script>
+  <script src="{% static 'site/js/nivo-lightbox.min.js' %}"></script>
+  <script src="{% static 'site/js/custom.js' %}"></script>
+
+</body>
+
+</html>
+{% endif %}

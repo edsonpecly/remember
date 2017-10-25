@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block 1 %}
+	<!-- Bootstrap core CSS -->
+    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
+    <!--external css-->
+    <link href="{% static 'assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+        
+    <!-- Custom styles for this template -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style-responsive.css' %}" rel="stylesheet">
+
+    <script src="{% static 'assets/js/chart-master/Chart.js' %}"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+{% endblock %}
+{% block 2 %}
+<h3><i class="fa fa-angle-right"></i> Aniversariantes</h3>
+<div class="row mt">
+	<div class="col-lg-6 col-md-6 col-sm-12">
+    	<div class="showback">
+        	<table class="table">
+    			<thead>
+					<tr>
+                    	<th>Cliente</th>
+                        <th class="hidden-phone">E-mail</th>
+                        <th>Ação</th>
+					</tr>
+				</thead>
+                <tbody>
+                	{% for aniversario in aniversario %}
+            		{% if data == aniversario.data_nascimento|date:"d/m" %}
+					<tr>
+                    	<td><a href="{{ aniversario.get_absolute_url }}">{{ aniversario.nome }}</a></td>
+                        <td class="hidden-phone">{{ aniversario.email }}</td>
+                        <td><a href="https://api.whatsapp.com/send?phone=55{{ aniversario.whatsapp }}&text=Olá%20{{ aniversario.nome }},%20tudo%20bem?%20Passando%20aqui%20pra%20te%20desejar%20um%20FELIZ%20ANIVERSÁRIO!%20Muita%20saúde,%20paz%20e%20alegrias.%20Desejo%20a%20você%20muito%20sucesso%20em%20sua%20vida!%20Parabéns!!!%20Esses%20são%20os%20votos%20de%20toda%20equipe%20do(a)%20{{ request.user.nome_empresa }}" target="_blank" class="btn btn-{% if cores.cor_topo == '1' %}warning{% elif cores.cor_topo == '2' %}danger{% elif cores.cor_topo == '4' %}primary{% else %}theme02{% endif %} btn-xs">Enviar Mensagem</a></td>
+					</tr>
+                    {% endif %}
+                    {% empty %}
+                    <tr>
+                    	<td>Nenhum aniversariante hoje</td>
+                    </tr>
+            		{% endfor %}
+				</tbody> 
+            </table>            	
+        </div>
+	</div>
+</div> 			
+	</section><!--/wrapper -->
+</section><!-- /MAIN CONTENT -->
+{% endblock %}
+{% block 3 %}
+	<!-- js placed at the end of the document so the pages load faster -->
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script class="include" type="text/javascript" src="{% static 'assets/js/jquery.dcjqaccordion.2.7.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.scrollTo.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+    <script src="{% static 'assets/js/jquery.sparkline.js' %}"></script>
+
+    <!--common script for all pages-->
+    <script src="{% static 'assets/js/common-scripts.js' %}"></script>
+
+    <!--script for this page-->
+    <script src="{% static 'assets/js/sparkline-chart.js' %}"></script>    
+    
+    
+  <script>
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+  </script>
+
+  </body>
+</html>
+{% endblock %}

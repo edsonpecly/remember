@@ -1,0 +1,82 @@
+{% if user.is_authenticated %}
+            <script language="JavaScript"> 
+				window.location="{% url 'home' %}"; 
+			</script>
+            {% else %}
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>R System - Sistema para Fidelização de Clientes</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
+    <!--external css-->
+    <link href="{% static 'assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+        
+    <!-- Custom styles for this template -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style-responsive.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+{% for message in messages %}
+<div class="alert alert-success alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<center><strong>{{ message }}</strong></center>
+</div>
+{% endfor %}
+<div id="login-page">
+	<div class="container">
+    	<form class="form-login" method="post">
+        	{% csrf_token %}
+            <h2 class="form-login-heading">Esqueceu a Senha?</h2>
+			{% for error in form.non_field_errors %}
+			<br>
+            <div class="alert alert-dismissible alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				{{ error }}
+			</div>
+			{% endfor %}
+            <div class="login-wrap">
+            <p>Digite seu email abaixo para redefinir sua senha</p>
+			{% render_field form.email class="form-control" placeholder="Digite o email do seu cadastro" %}
+            {% for error in form.email.errors %}
+            <span class="help-block">{{ error }}</span>
+            {% endfor %}
+            <hr>
+		    <button class="btn btn-theme02 btn-block" type="submit">Enviar <i class="glyphicon glyphicon-send"></i></button>
+            <a href="{% url 'home' %}" class="btn btn-default btn-block">Voltar ao login</a>
+            </div>
+		</form>	  	
+	</div>
+</div>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="{% static 'assets/js/jquery.backstretch.min.js' %}"></script>
+    <script>
+        $.backstretch("{% static 'assets/img/login-bg.jpg' %}", {speed: 500});
+    </script>
+
+
+  </body>
+</html>
+{% endif %}

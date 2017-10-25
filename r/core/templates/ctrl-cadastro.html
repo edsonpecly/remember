@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block 1 %}
+	<!-- Bootstrap core CSS -->
+    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
+    <!--external css-->
+    <link href="{% static 'assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/js/gritter/css/jquery.gritter.css' %}" />
+        
+    <!-- Custom styles for this template -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style-responsive.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+{% endblock %}
+{% block 2 %}
+	<!--main content start-->
+      <div class="row mt">
+   			  <div class="col-lg-6 col-md-6 col-sm-12">
+      				<div class="showback">
+      					<h4><strong>Cadastro Cliente</strong></h4>
+                        <table class="table">
+                        	<thead>
+                            	<tr>
+                                	<th>Campo</th>
+                                    <th>Exibir?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	<tr>
+                                	<td>Telefone</td>
+                                    <td><span class="label label-{% if exibir_campo.u_telefone == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_u_telefone_display }} </span></td>
+                                </tr>
+                                <tr>
+                                	<td>Data de Nascimento</td>
+                                    <td><span class="label label-{% if exibir_campo.u_data_nascimento == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_u_data_nascimento_display }} </span></td>
+                                </tr>
+                                <tr>
+                                	<td>Endereço</td>
+                                    <td><span class="label label-{% if exibir_campo.u_endereco == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_u_endereco_display }} </span></td>
+                                </tr>
+                                <tr>
+                                	<td>Observação</td>
+                                    <td><span class="label label-{% if exibir_campo.u_observacao == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_u_observacao_display }} </span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!--/showback -->
+              </div><!--/col-lg-6 -->
+              
+              <div class="col-lg-6 col-md-6 col-sm-12">
+      				<div class="showback">
+      					<h4><strong>Cadastro Profissional</strong></h4>
+                        <table class="table">
+                        	<thead>
+                            	<tr>
+                                	<th>Campo</th>
+                                    <th>Exibir?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	<tr>
+                                	<td>Celular</td>
+                                    <td><span class="label label-{% if exibir_campo.p_celular == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_p_celular_display }} </span></td>
+                                </tr>
+                                <tr>
+                                	<td>Data de Nascimento</td>
+                                    <td><span class="label label-{% if exibir_campo.p_data_nascimento == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_p_data_nascimento_display }} </span></td>
+                                </tr>
+                                <tr>
+                                	<td>Endereço</td>
+                                    <td><span class="label label-{% if exibir_campo.p_endereco == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_p_endereco_display }} </span></td>
+                                </tr>
+                                <tr>
+                                	<td>Observação</td>
+                                    <td><span class="label label-{% if exibir_campo.p_observacao == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_p_observacao_display }} </span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!--/showback -->
+              </div><!--/col-lg-6 -->
+              
+              <div class="col-lg-6 col-md-6 col-sm-12">
+      				<div class="showback">
+      					<h4><strong>Cadastro Produto</strong></h4>
+                        <table class="table">
+                        	<thead>
+                            	<tr>
+                                	<th>Campo</th>
+                                    <th>Exibir?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	<tr>
+                                	<td>Custo</td>
+                                    <td><span class="label label-{% if exibir_campo.pr_custo == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_pr_custo_display }} </span></td>
+                                </tr>
+                                <tr>
+                                	<td>Valor</td>
+                                    <td><span class="label label-{% if exibir_campo.pr_valor == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_pr_valor_display }} </span></td>
+                                </tr>
+                                <tr>
+                                	<td>Observação</td>
+                                    <td><span class="label label-{% if exibir_campo.pr_observacao == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_pr_observacao_display }} </span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!--/showback -->
+              </div><!--/col-lg-6 -->
+              
+              <div class="col-lg-6 col-md-6 col-sm-12">
+      				<div class="showback">
+      					<h4><strong>Cadastro Serviço</strong></h4>
+                        <table class="table">
+                        	<thead>
+                            	<tr>
+                                	<th>Campo</th>
+                                    <th>Exibir?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	<tr>
+                                	<td>Valor</td>
+                                    <td><span class="label label-{% if exibir_campo.s_valor == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_s_valor_display }} </span></td>
+                                </tr>
+                                <tr>
+                                	<td>Observação</td>
+                                    <td><span class="label label-{% if exibir_campo.s_observacao == '2' %}danger{% else %}success{% endif %}">  {{ exibir_campo.get_s_observacao_display }} </span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!--/showback -->
+              </div><!--/col-lg-6 -->
+              
+              <div class="col-lg-12">      
+                    <div align="left"><a href="{% url 'editar_ctrl_cadastro' %}" class="btn btn-{% if cores.cor_topo == '1' %}warning{% elif cores.cor_topo == '2' %}danger{% elif cores.cor_topo == '4' %}primary{% else %}theme02{% endif %}"><span class="glyphicon glyphicon-edit"></span> Editar</a></div>
+              </div><!--/col-lg-12-->
+              
+              </div><!--/ row -->
+          </section><!--/wrapper -->
+      </section><!-- /MAIN CONTENT -->
+
+      <!--main content end-->
+{% endblock %}
+{% block 3 %}
+	<!-- js placed at the end of the document so the pages load faster -->
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="{% static 'assets/js/jjquery-1.8.3.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script class="include" type="text/javascript" src="{% static 'assets/js/jquery.dcjqaccordion.2.7.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.scrollTo.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+
+
+    <!--common script for all pages-->
+    <script src="{% static 'assets/js/common-scripts.js' %}"></script>
+
+    <!--script for this page-->
+    <script type="text/javascript" src="{% static 'assets/js/gritter/js/jquery.gritter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/gritter-conf.js' %}"></script>
+    
+  <script>
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+  </script>
+
+  </body>
+</html>
+{% endblock %}
