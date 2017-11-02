@@ -42,14 +42,14 @@
        					{% endfor %}
                         <br>
                         E-mail:
-                        {% render_field form.email class="form-control"%}
+                        {% render_field form.email class="form-control" placeholder="exemplo@exemplo.com.br" %}
                     	{% for error in form.email.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
                         {% if exibir_campo.u_telefone == '1' %}
                         <br>
                         Telefone:
-                        {% render_field form.telefone class="form-control"%}
+                        {% render_field form.telefone class="form-control" placeholder="Ex.: (11)3003-0909" %}
                     	{% for error in form.telefone.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
@@ -57,14 +57,14 @@
                         {% if exibir_campo.u_data_nascimento == '1' %}
                         <br>
                         Data de Nascimento:
-                        {% render_field form.data_nascimento class="form-control"%}
+                        {% render_field form.data_nascimento class="form-control" placeholder="Ex.: 10/09/1980" %}
                     	{% for error in form.data_nascimento.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
                         {% endif %}
                         <br>
                         WhatsApp:
-                        {% render_field form.whatsapp class="form-control"%}
+                        {% render_field form.whatsapp class="form-control" placeholder="Não inclua traços nem parentêses. Ex.: 11977665544" %}
                     	{% for error in form.whatsapp.errors %}
                         <span class="help-block">{{ error }}</span>
        					{% endfor %}
@@ -82,7 +82,7 @@
        					{% endfor %}
                         <br>
                         Complemento:
-                        {% render_field form.compl class="form-control"%}
+                        {% render_field form.compl class="form-control" placeholder="Ex.: casa 3, apto n° 5, bloco B, tec" %}
                     	{% for error in form.compl.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}

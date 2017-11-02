@@ -31,7 +31,7 @@ def home(request):
     soma = 0
     while contagem < servicos_realizados:
         for v in valores:
-            valor1 = v.servico.valor
+            valor1 = v.valor
             valor1 = soma + valor1
             soma = valor1
             contagem = contagem + 1
@@ -39,22 +39,45 @@ def home(request):
     p_valores = VendaProduto.objects.filter(empresa=str(request.user.id))
     p_contagem = 0
     p_soma = 0
+    p_qtd = 0
     while p_contagem < produtos_vendidos:
         for vp in p_valores:
-            p_valor1 = vp.produto.valor
+            p_valor1 = vp.valor
             p_valor1 = p_soma + p_valor1
+            qtd_vp = vp.qtd
+            qtd_vp = p_qtd + qtd_vp
+            p_qtd = qtd_vp
             p_soma = p_valor1
             p_contagem = p_contagem + 1
     total_vendas = soma + p_soma
+    total_vp = p_qtd
     dia = f"{datetime.now():%d}"
     mes = f"{datetime.now():%m}"
+    ano = f"{datetime.now():%Y}"
     aniversario = Cliente.objects.filter(empresa=str(request.user.id)).filter(
         data_nascimento__day=dia).filter(data_nascimento__month=mes).count()
+    limite_10 = int(dia) - 10
+    limite_7 = int(dia) - 7
+    limite_5 = int(dia) - 5
+    limite_3 = int(dia) - 3
+    venc_limite_10 = User.objects.filter(id=request.user.id).filter(fim_ciclo__day__gte=limite_10).filter(
+            fim_ciclo__day__lt=limite_7).filter(fim_ciclo__month=mes).filter(fim_ciclo__year=ano).count()
+    venc_limite_7 = User.objects.filter(id=request.user.id).filter(fim_ciclo__day__gte=limite_7).filter(
+        fim_ciclo__day__lt=limite_5).filter(fim_ciclo__month=mes).filter(fim_ciclo__year=ano).count()
+    venc_limite_5 = User.objects.filter(id=request.user.id).filter(fim_ciclo__day__gte=limite_5).filter(
+        fim_ciclo__day__lt=limite_3).filter(fim_ciclo__month=mes).filter(fim_ciclo__year=ano).count()
+    if venc_limite_10 == 1:
+        User.objects.filter(id=request.user.id).update(permissao=3)
+        return redirect('acesso_negado')
+    elif venc_limite_7 == 1:
+        User.objects.filter(id=request.user.id).update(permissao=2)
+    elif venc_limite_5 == 1:
+        User.objects.filter(id=request.user.id).update(permissao=1)
     context = {
         'home': home,
         'servicos_realizados': servicos_realizados,
         'total_vendas': total_vendas,
-        'produtos_vendidos': produtos_vendidos,
+        'produtos_vendidos': total_vp,
         'aniversario': aniversario
     }
     if request.user.whatsapp is None:
@@ -94,7 +117,7 @@ def cadastro_usuario(request):
             form3.slug = form3.id
             form3.save()
             form4 = ConfigsSistema(
-                usuario=User.id, aviso_retorno=5, aviso_produto=5, c_profissional= '1', c_produto='1',
+                usuario=User.id, aviso_retorno=5, aviso_produto=5, c_profissional='1', c_produto='1',
                 ctrl_servicos='1', ctrl_produto='2'
             )
             form4.save()
@@ -149,6 +172,7 @@ def deposito_boleto(request):
             SolicitarPagamento = form.save(commit=False)
             SolicitarPagamento.usuario = request.user.id
             form.save()
+            User.objects.filter(id=request.user.id).update(tipo_pagamento=SolicitarPagamento.pagamento)
             SolicitarPagamento.slug = (SolicitarPagamento.criaslug())
             form.save()
             messages.info(request, 'Sua solicitação será respondida em breve')
@@ -202,6 +226,12 @@ def plano_bronze(request):
 @login_required
 def aguarde_aprovacao(request):
     template_name = 'aguarde-aprovacao.html'
+    return render(request, template_name)
+
+
+@login_required
+def acesso_negado(request):
+    template_name = 'acesso-negado.html'
     return render(request, template_name)
 
 
@@ -260,9 +290,12 @@ def info_gerais(request):
 def editar_informacoes(request):
     template_name = 'editar-informacoes.html'
     editar_informacoes = 'active'
+    permissao = request.user.permissao
     if request.method == 'POST':
         form = EditAccountForm(request.POST, instance=request.user)
         if form.is_valid():
+            User = form.save(commit=False)
+            User.permissao = permissao
             form.save()
             form = EditAccountForm(instance=request.user)
             messages.success(request, 'As alterações foram gravadas com sucesso!')
@@ -481,6 +514,32 @@ def protocolo_atendimento(request, slug):
     context = {
         'protocolo_atendimento': protocolo_atendimento,
         'protocolo_de_atendimento': protocolo_de_atendimento
+    }
+    return render(request, template_name, context)
+
+
+@login_required
+def contato(request):
+    template_name = 'contato.html'
+    data = date.today()
+    if request.method == 'POST':
+        form = SuporteForm(request.POST)
+        if form.is_valid():
+            Suporte = form.save(commit=False)
+            Suporte.save()
+            Suporte.usuario = request.user.cod_empresa
+            Suporte.email = request.user.email
+            Suporte.telefone = request.user.telefone
+            Suporte.protocolo = str(request.user.id) + str(Suporte.id) + str(data.year) + \
+                                str(data.month) + str(data.day)
+            Suporte.slug = (Suporte.criaslug())
+            form.save()
+            messages.info(request, 'Mensagem enviada com sucesso!')
+            return redirect('index')
+    else:
+        form = SuporteForm()
+    context = {
+        'form': form,
     }
     return render(request, template_name, context)
 

@@ -22,59 +22,55 @@
 
   <body>
 {% endblock %}
-{% block 2 %}      
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper site-min-height">
-          	<h3><i class="fa fa-angle-right"></i> Lista de Clientes</h3>
-				<div class="row mt">             
-          		<div class="col-lg-12">
-          			<div class="row">
-						<div class="col-lg-12">
-							<div class="showback">
-                            <p>Filtrar:</p>
-                            	<p><a href="{% url 'adm:adm_clientes' %}" class="btn btn-default btn-xs">todos</a> <a href="{% url 'adm:adm_clientes_ouro' %}" class="btn btn-primary btn-xs"> plano ouro</a> <a href="{% url 'adm:adm_clientes_prata' %}" class="btn btn-default btn-xs"> plano prata</a> <a href="{% url 'adm:adm_clientes_bronze' %}" class="btn btn-default btn-xs"> plano bronze </a> &nbsp;&nbsp;</p></div>
-                                <div class="content-panel">
-                        		<table class="table table-striped table-advance table-hover">
-                            	<thead>
-                                	<tr>
-                                    	<th>Cód.</th>
-                                        <th>Nome</th>
-                                        <th class="hidden-phone">Empresa</th>
-                                        <th class="hidden-phone">E-mail</th>
-                                        <th>Telefone</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                	{% for user in adm_clientes_all %}
-                                	<tr>
-                                    	<td><a href="{{ user.get_absolute_url }}">{{ user.id }}</a></td>
-                                        <td><a href="{{ user.get_absolute_url }}">{{ user }}</a></td>
-                                        <td class="hidden-phone">{{ user.nome_empresa }}</td>
-                                        <td class="hidden-phone">{{ user.email }}</td>
-                                        <td>{{ user.telefone }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>                                                
-                            </table>
-                            <ul class="pager">
-	<li>{% if adm_clientes_all.has_previous %}<a href="?page={{ adm_clientes_all.previous_page_number }}">Anterior</a></li>{% endif %}
-	<li class="disabled"><a href="#">Página {{ adm_clientes_all.number }} de {{ adm_clientes_all.paginator.num_pages }}</a></li>
-{% if adm_clientes_all.has_next %}
-	<li><a href="?page={{ adm_clientes_all.next_page_number }}">Próxima</a></li>{% endif %}
-</ul> 
-                        </div>                        
-					</div>
-				</div><!-- /col-md-4 -->
-            </div><!--/END 2ST ROW OF PANELS -->
-				
-				</div>
-          	</div>
-			
-		</section><!--/wrapper -->
-      </section><!-- /MAIN CONTENT -->
-
-      <!--main content end-->
+{% block 2 %}  
+<h3>Lista de Clientes</h3>
+<div class="col-lg-12">
+	<div class="content-panel">
+    	<div class="col-lg-6 col-md-6 col-sm-6 mb">
+        	<p>Filtrar:</p>
+            <p><a href="{% url 'adm:adm_clientes' %}" class="btn btn-default btn-xs">todos</a> <a href="{% url 'adm:adm_clientes_ouro' %}" class="btn btn-primary btn-xs"> plano ouro</a> <a href="{% url 'adm:adm_clientes_prata' %}" class="btn btn-default btn-xs"> plano prata</a> <a href="{% url 'adm:adm_clientes_bronze' %}" class="btn btn-default btn-xs"> plano bronze </a> <a href="{% url 'adm:adm_clientes_boleto' %}" class="btn btn-default btn-xs"> deb./bol. </a> &nbsp;&nbsp;</p>
+		</div>
+        <table class="table table-striped table-advance table-hover">
+        	<thead>
+            	<tr>
+                	<th>Cód.</th>
+                    <th>Nome</th>
+                    <th class="hidden-phone">Empresa</th>
+                    <th class="hidden-phone">E-mail</th>
+                    <th>Telefone</th>
+				</tr>
+			</thead>
+            <tbody>
+            	{% for user in adm_clientes_all %}
+                <tr>
+                	<td><a href="{{ user.get_absolute_url }}">{{ user.id }}</a></td>
+                    <td><a href="{{ user.get_absolute_url }}">{{ user }}</a></td>
+                    <td class="hidden-phone">{{ user.nome_empresa }}</td>
+                    <td class="hidden-phone">{{ user.email }}</td>
+                    <td>{{ user.telefone }}</td>
+				</tr>
+                {% endfor %}
+			</tbody>                                                
+		</table>
+        <ul class="pager">
+        	<li>
+            	{% if adm_clientes_all.has_previous %}
+                <a href="?page={{ adm_clientes_all.previous_page_number }}">Anterior</a>
+                {% endif %}
+			</li>
+            <li class="disabled">
+            	<a href="#">Página {{ adm_clientes_all.number }} de {{ adm_clientes_all.paginator.num_pages }}</a>
+			</li>
+            {% if adm_clientes_all.has_next %}
+            <li>
+            	<a href="?page={{ adm_clientes_all.next_page_number }}">Próxima</a>
+			</li>
+            {% endif %}
+		</ul>
+	</div>
+</div>
+	</section><!--/wrapper -->
+</section><!-- /MAIN CONTENT -->
 {% endblock %}
 {% block 3 %}
 	<!-- js placed at the end of the document so the pages load faster -->

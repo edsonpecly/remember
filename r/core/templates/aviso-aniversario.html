@@ -43,11 +43,7 @@
                         <td class="hidden-phone">{{ aniversario.email }}</td>
                         <td><a href="https://api.whatsapp.com/send?phone=55{{ aniversario.whatsapp }}&text=Olá%20{{ aniversario.nome }},%20tudo%20bem?%20Passando%20aqui%20pra%20te%20desejar%20um%20FELIZ%20ANIVERSÁRIO!%20Muita%20saúde,%20paz%20e%20alegrias.%20Desejo%20a%20você%20muito%20sucesso%20em%20sua%20vida!%20Parabéns!!!%20Esses%20são%20os%20votos%20de%20toda%20equipe%20do(a)%20{{ request.user.nome_empresa }}" target="_blank" class="btn btn-{% if cores.cor_topo == '1' %}warning{% elif cores.cor_topo == '2' %}danger{% elif cores.cor_topo == '4' %}primary{% else %}theme02{% endif %} btn-xs">Enviar Mensagem</a></td>
 					</tr>
-                    {% endif %}
-                    {% empty %}
-                    <tr>
-                    	<td>Nenhum aniversariante hoje</td>
-                    </tr>
+                    {% endif %} 
             		{% endfor %}
 				</tbody> 
             </table>            	

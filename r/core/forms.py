@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from .utils import generate_hash_key
 from .mail import send_mail_template
-from .models import User, DesignSystem, ControleCadastro, ConfigsSistema, PasswordReset
+from .models import (User, DesignSystem, ControleCadastro, ConfigsSistema, PasswordReset, PeriodicidadeProduto,
+                     PeriodicidadeServico)
 
 User = get_user_model()
 
@@ -70,7 +71,7 @@ class EditAccountForm(forms.ModelForm):
         model = User
         fields = [
             'username', 'email', 'name', 'endereco', 'telefone', 'whatsapp', 'nome_empresa', 'cnpj', 'whatsapp',
-            'permissao', 'plano', 'inicio_ciclo', 'fim_ciclo', 'tipo_pagamento'
+            'permissao', 'plano', 'inicio_ciclo', 'fim_ciclo', 'tipo_pagamento', 'vendedor'
         ]
 
 
@@ -95,3 +96,15 @@ class ConfigsSistemaForm(forms.ModelForm):
         fields = [
             'aviso_retorno', 'aviso_produto', 'c_profissional', 'c_produto', 'ctrl_servicos', 'ctrl_produto'
         ]
+
+
+class PeriodicidadeProdutoForm(forms.ModelForm):
+    class Meta:
+        model = PeriodicidadeProduto
+        fields = ['pc_produto']
+
+
+class PeriodicidadeServicoForm(forms.ModelForm):
+    class Meta:
+        model = PeriodicidadeServico
+        fields = ['pc_servico']

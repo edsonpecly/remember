@@ -1,10 +1,14 @@
-{% if request.user.permissao == '0' %}
+{% if request.user.permissao == 0 %}
 <script language="JavaScript"> 
 				window.location="{% url 'aguarde_aprovacao' %}"; 
 </script>
-{% elif request.user.permissao == '10' %}
+{% elif request.user.permissao == 10 %}
 <script language="JavaScript"> 
-				window.location="{% url 'adm:venc_planos' %}"; 
+				window.location="{% url 'adm:home_adm' %}"; 
+</script>
+{% elif request.user.permissao == 3 %}
+<script language="JavaScript"> 
+				window.location="{% url 'acesso_negado' %}"; 
 </script>
 {% else %}
 <!DOCTYPE html>
@@ -67,10 +71,6 @@
         </header>
       <!--header end-->
       
-      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
@@ -187,14 +187,13 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	{% if request.user.permissao == '1' %}
+          	{% if request.user.permissao == 2 %}
           	<br>
             <div class="alert alert-danger">
-				<h4><strong>Sua mensalidade está atrasada, <a href="{% url 'info_sistema' %}">regularize</a> sua situação e evite o bloqueio do sistema.</strong></h4>
-				<a href="{% url 'info_sistema' %}" class="btn btn-danger btn-lg">Pagar</a>
+				<h4><strong>Sua mensalidade está atrasada! <a href="{% url 'suporte' %}">CLIQUE AQUI</a> e entre em contato com o suporte para regularizar sua situação</strong></h4>
 			</div>
            	{% endif %}
-          	{% for message in messages %}
+            {% for message in messages %}
             <br>
 			<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -588,7 +587,7 @@
                                 <h4 class="modal-title" id="myModalLabel">Termos de Uso</h4>
                             </div>
                             <div class="modal-body">
-                            	<p><font color="#000000"><strong>Bem-vindo ao Remember</strong></font>. A seguir apresentamos a você (visitante) os Termos de Uso e Condições de Navegação, documento que relaciona as principais regras que devem ser observadas por todos que acessam este sistema ou utilizam suas ferramentas.</p>
+                            	<p><font color="#000000"><strong>Bem-vindo ao Sistema Remember</strong></font>. A seguir apresentamos a você (visitante) os Termos de Uso e Condições de Navegação, documento que relaciona as principais regras que devem ser observadas por todos que acessam este sistema ou utilizam suas ferramentas.</p>
 <p></p>
 <p>Ao visitar ou utilizar este sistema pressupõe-se a leitura e concordância com todos os termos abaixo e da plena capacidade civil do usuário em realizar a contratação do presente serviço.</p>
 <p></p>
@@ -610,7 +609,7 @@ Logs: Registros de atividades do visitante efetuadas no Sistema.
 <p></p>
 Site: Denominação para páginas de internet.
 <p></p>
-Usuários: Pessoas que acessam ou interagem com as atividades oferecidas pelo Remember.
+Usuários: Pessoas que acessam ou interagem com as atividades oferecidas pelo Sistema Remember.
 <p></p>
 Webmastering: Compreende a criação, programação, desenvolvimento, controle e disponibilidade de páginas de internet.
 <p></p>
@@ -622,9 +621,9 @@ Webmastering: Compreende a criação, programação, desenvolvimento, controle e
 <p></p>
 1.3. Também não é autorizado realizar ou permitir engenharia reversa, nem traduzir, decompilar, copiar, modificar, reproduzir, alugar, sublicenciar, publicar, divulgar, transmitir, emprestar, distribuir ou, de outra maneira, dispor das ferramentas de consulta deste sistema e de suas funcionalidades.
 <p></p>
-1.4. Ao usuário não é permitido modificar pacotes de dados enviados ao Remember, seja pela alteração do endereço de IP de origem ou de retorno de dados ou pelo payload carregado, tal qual a aplicação de outras técnicas para mascarar, esconder, alterar ou falsear seu endereço de IP durante seu acesso ou tentativa de tal ou, de forma geral, interferir no funcionamento regular de conexão entre seu dispositivo e os servidores do sistema.
+1.4. Ao usuário não é permitido modificar pacotes de dados enviados ao Sistema Remember, seja pela alteração do endereço de IP de origem ou de retorno de dados ou pelo payload carregado, tal qual a aplicação de outras técnicas para mascarar, esconder, alterar ou falsear seu endereço de IP durante seu acesso ou tentativa de tal ou, de forma geral, interferir no funcionamento regular de conexão entre seu dispositivo e os servidores do sistema.
 <p></p>
-1.4.1. Também, o usuário não deverá submeter conteúdos ao Remember que contiverem programas ou scripts maliciosos, sob pena de suspensão ou cancelamento da conta de acesso, conforme disposto em 2.8.
+1.4.1. Também, o usuário não deverá submeter conteúdos ao Sistema Remember que contiverem programas ou scripts maliciosos, sob pena de suspensão ou cancelamento da conta de acesso, conforme disposto em 2.8.
 <p></p>
 1.5. Neste sistema é proibida a utilização, de aplicativos spider, ou de mineração de dados, de qualquer tipo ou espécie, além de outro aqui não tipificado, mas que atue de modo automatizado, tanto para realizar operações massificadas ou para quaisquer outras finalidades, sob aplicação da legislação penal brasileira e de reparar os danos que decorrerem desta utilização.
 <p></p>
@@ -636,23 +635,23 @@ Webmastering: Compreende a criação, programação, desenvolvimento, controle e
 <p></p>
 2.1. Este sistema é apresentado ao público da web na maneira como está disponível, podendo passar por constantes aprimoramentos e atualizações, não ficando obrigado aos seus desenvolvedores a manter uma estrutura ou layout, se não por sua própria conveniência.
 <p></p>
-2.2. Os administradores do R envidam seus esforços para a disponibilidade contínua e permanente do sistema, ficando sujeito, todavia, a eventos extraordinários, como desastres naturais, falhas ou colapsos nos sistemas centrais de comunicação e acesso à internet ou fatos de terceiro, que fogem de sua esfera de vigilância e responsabilidade.
+2.2. Os Administradores do Remember envidam seus esforços para a disponibilidade contínua e permanente do sistema, ficando sujeito, todavia, a eventos extraordinários, como desastres naturais, falhas ou colapsos nos sistemas centrais de comunicação e acesso à internet ou fatos de terceiro, que fogem de sua esfera de vigilância e responsabilidade.
 <p></p>
-2.3. Os administradores do R não se responsabilizam por qualquer dano, prejuízo ou perda no equipamento dos usuários causados por falhas no sistema, no servidor ou na conexão à Internet, ainda que decorrentes de condutas de terceiros, inclusive por ações de softwares maliciosos como vírus, cavalos de tróia, e outros que possam, de algum modo, danificar o equipamento ou a conexão dos visitantes e usuários em decorrência do acesso, utilização ou navegação neste sistema, bem como a transferência de dados, arquivos, imagens, textos, áudios ou vídeos contidos no mesmo.
+2.3. Os Administradores do Remember não se responsabilizam por qualquer dano, prejuízo ou perda no equipamento dos usuários causados por falhas no sistema, no servidor ou na conexão à Internet, ainda que decorrentes de condutas de terceiros, inclusive por ações de softwares maliciosos como vírus, cavalos de tróia, e outros que possam, de algum modo, danificar o equipamento ou a conexão dos visitantes e usuários em decorrência do acesso, utilização ou navegação neste sistema, bem como a transferência de dados, arquivos, imagens, textos, áudios ou vídeos contidos no mesmo.
 <p></p>
-2.4. Igualmente, os Administradores do R não serão responsáveis por danos emergentes ou lucros cessantes que decorrerem de indisponibilidade, erros, falhas, bugs e vulnerabilidades do Remember, incluindo a funcionalidade da plataforma ou a integridade e disponibilidade dos dados submetidos pelos usuários.
+2.4. Igualmente, os Administradores do Remember não serão responsáveis por danos emergentes ou lucros cessantes que decorrerem de indisponibilidade, erros, falhas, bugs e vulnerabilidades do Sistema Remember, incluindo a funcionalidade da plataforma ou a integridade e disponibilidade dos dados submetidos pelos usuários.
 <p></p>
 2.5. Os usuários não possuem qualquer direito para exigir a disponibilidade do sistema conforme melhor lhes convêm, tampouco poderão pleitear indenização ou reparação de danos em caso deste sistema permanecer fora do ar, independente da motivação.
 <p></p>
-2.6. Os administradores do R não detém qualquer responsabilidade pela navegação dos usuários nos links externos contidos no sistema, sendo o dever deles a leitura dos Termos de Uso e Política de Privacidade do site acessado e agir conforme o determinado. Também serão os principais responsáveis caso sobrevier algum dano ou prejuízo, uma vez que a navegação segura cabe aos mesmos e que o Remember apenas apontou o link cabendo ao interessado a visita, ou não, ao site.
+2.6. Os Administradores do Remember não detém qualquer responsabilidade pela navegação dos usuários nos links externos contidos no sistema, sendo o dever deles a leitura dos Termos de Uso e Política de Privacidade do site acessado e agir conforme o determinado. Também serão os principais responsáveis caso sobrevier algum dano ou prejuízo, uma vez que a navegação segura cabe aos mesmos e que o Sistema Remember apenas apontou o link cabendo ao interessado a visita, ou não, ao site.
 <p></p>
-2.6.1. Os administradores do R não verificam, controlam, aprovam ou garantem a adequação ou exatidão das informações ou dados disponibilizados em tais links, não sendo, portanto, responsáveis por prejuízos, perdas ou danos ocorridos pela visita de tais sites, cabendo ao usuário verificar a confiabilidade das informações e dados ali exibidas antes de utilizá-los.
+2.6.1. Os Administradores do Remember não verificam, controlam, aprovam ou garantem a adequação ou exatidão das informações ou dados disponibilizados em tais links, não sendo, portanto, responsáveis por prejuízos, perdas ou danos ocorridos pela visita de tais sites, cabendo ao usuário verificar a confiabilidade das informações e dados ali exibidas antes de utilizá-los.
 <p></p>
-2.6.2. Perdas, danos ou prejuízos ocasionados por atrasos, defeitos, erros ou omissões que possam existir nos sistemas ou serviços disponibilizados pelos sites referidos acima, não são de responsabilidade dos administradores do R, mas sim de seu respectivo controlador.
+2.6.2. Perdas, danos ou prejuízos ocasionados por atrasos, defeitos, erros ou omissões que possam existir nos sistemas ou serviços disponibilizados pelos sites referidos acima, não são de responsabilidade dos Administradores do Remember, mas sim de seu respectivo controlador.
 <p></p>
 2.7. Os administradore do R não se responsabilizam pelos atos praticados por usuários em seu sistema, devendo cada um ser imputado de acordo com a qualidade do uso da plataforma.
 <p></p>
-2.8. Os administradores do R poderão suspender ou excluir as contas de acesso de seus usuários que descumprirem os presentes Termos de Uso, que transgridam a lei pelo uso do Remember ou procedam de forma não ética, a qualquer tempo e sem a necessidade de aviso prévio, o que não dará direito a nenhuma indenização ou ressarcimento, sob qualquer pretexto.
+2.8. Os Administradores do Remember poderão suspender ou excluir as contas de acesso de seus usuários que descumprirem os presentes Termos de Uso, que transgridam a lei pelo uso do Sistema Remember ou procedam de forma não ética, a qualquer tempo e sem a necessidade de aviso prévio, o que não dará direito a nenhuma indenização ou ressarcimento, sob qualquer pretexto.
 <p></p>
 <font color="#000000"><strong>3 – Comunicação do sistema com seus usuários</strong></font>
 <p></p>
@@ -660,19 +659,19 @@ Webmastering: Compreende a criação, programação, desenvolvimento, controle e
 <p></p>
 3.1.1. A responsabilidade pelo recebimento dos comunicados é exclusiva dos usuários, por isso é indispensável que sempre forneçam os dados corretos e precisos, além de os manterem atualizados.
 <p></p>
-3.1.2. É igualmente de suas alçadas deixarem seus sistemas de anti-spam configurados de modo que não interfiram no recebimento dos comunicados e materiais do Remember, não sendo aceitável nenhuma escusa caso não tenha tido acesso a algum e-mail em virtude desse bloqueio ou filtro similar.
+3.1.2. É igualmente de suas alçadas deixarem seus sistemas de anti-spam configurados de modo que não interfiram no recebimento dos comunicados e materiais do Sistema Remember, não sendo aceitável nenhuma escusa caso não tenha tido acesso a algum e-mail em virtude desse bloqueio ou filtro similar.
 <p></p>
 <font color="#000000"><strong>4 – Privacidade dos visitantes e usuários no sistema</strong></font>
 <p></p>
-4.1. O Remember possui documento próprio, denominado Política de Privacidade, que regula o tratamento dado às informações de cadastro e demais informações e dados coletados.
+4.1. O Sistema Remember possui documento próprio, denominado Política de Privacidade, que regula o tratamento dado às informações de cadastro e demais informações e dados coletados.
 <p></p>
 4.2. A Política de Privacidade é parte integrante e inseparável dos Termos de Uso e Condições de Navegação deste Sistema, e pode ser acessada no link encontrado em seu rodapé.
 <p></p>
 4.3. Caso alguma disposição da Política de Privacidade conflitar com qualquer outra do presente documento, deverá prevalecer o descrito na norma mais específica.
 <p></p>
-<font color="#000000"><strong>5 – Obrigações do Remember</strong></font>
+<font color="#000000"><strong>5 – Obrigações do Sistema Remember</strong></font>
 <p></p>
-5.1. Os administradores do R se obrigam com os visitantes e usuários a:
+5.1. Os Administradores do Remember se obrigam com os visitantes e usuários a:
 <p></p>
 5.1.1. Manter o ambiente digital seguro, tal qual suas operações de gerenciamento e dados registrados para tanto, salvo por ato destrutivo de terceiro que vá além dos esforços empenhados e do estado atual da tecnologia, hipótese que não se responsabilizará por danos oriundos dessa prática danosa.
 <p></p>
@@ -688,7 +687,7 @@ Webmastering: Compreende a criação, programação, desenvolvimento, controle e
 <p></p>
 6.2. Ao fornecer dados e informações, os usuários se obrigam a fazê-lo sempre com compromisso de veracidade e autenticidade, sob pena da aplicação das penas da lei, de indenizar a quem causar dano e de ter a conta de acesso do presente sistema excluída.
 <p></p>
-6.3. Na incidência de danos ao sistema ou a terceiros, o responsável se compromete a arcar com todas as obrigações de indenizar o sujeito lesado, não devendo Os administradores do R responderem por tais prejuízos.
+6.3. Na incidência de danos ao sistema ou a terceiros, o responsável se compromete a arcar com todas as obrigações de indenizar o sujeito lesado, não devendo Os Administradores do Remember responderem por tais prejuízos.
 <p></p>
 6.4. Os usuários devem utilizar os recursos do presente sistema para as finalidades que foi constituído, sob pena da aplicação das penas da lei, de indenizarem a quem causarem dano e de terem a conta de acesso do presente sistema excluída.
 <p></p>
@@ -696,39 +695,39 @@ Webmastering: Compreende a criação, programação, desenvolvimento, controle e
 <p></p>
 6.5.1. Caso o usuário suspeite que a confidencialidade de sua senha foi quebrada ou que houve o comprometimento de algum dispositivo de autenticação, este deverá proceder sua troca ou atualização o mais rápido possível. Se não conseguir acessar a Internet para obter suporte, deverá buscar atendimento dentre os canais disponíveis.
 <p></p>
-6.6. Reconhecer como válidos, legítimos e eficazes todos os atos jurídicos praticados mediante sua conta de acesso no Remember, não podendo alegar repúdio quanto à forma no momento da contratação do presente serviço ou das operações realizadas posteriormente.
+6.6. Reconhecer como válidos, legítimos e eficazes todos os atos jurídicos praticados mediante sua conta de acesso no Sistema Remember, não podendo alegar repúdio quanto à forma no momento da contratação do presente serviço ou das operações realizadas posteriormente.
 <p></p>
-6.7. O usuário se obriga em defender, indenizar e manter Os administradores do R e seus colaboradores livres de dano de qualquer reivindicação ou solicitação decorrentes do mau uso da plataforma ou da violação aos presentes Termos de Uso, especialmente na esfera judicial.
+6.7. O usuário se obriga em defender, indenizar e manter Os Administradores do Remember e seus colaboradores livres de dano de qualquer reivindicação ou solicitação decorrentes do mau uso da plataforma ou da violação aos presentes Termos de Uso, especialmente na esfera judicial.
 <p></p>
-<font color="#000000"><strong>7 – Direitos autorais e propriedade intelectual de Remember</strong></font>
+<font color="#000000"><strong>7 – Direitos autorais e propriedade intelectual de Sistema Remember</strong></font>
 <p></p>
-7.1. O uso comercial da expressão Remember como marca, nome empresarial ou nome de domínio, além dos conteúdos das telas de sistema, assim como os programas, bancos de dados, redes e seus arquivos são de propriedade dos administradores do R e estão protegidos pelas leis e tratados internacionais de direito autoral, marcas, patentes, modelos e desenhos industriais.
+7.1. O uso comercial da expressão Sistema Remember como marca, nome empresarial ou nome de domínio, além dos conteúdos das telas de sistema, assim como os programas, bancos de dados, redes e seus arquivos são de propriedade dos Administradores do Remember e estão protegidos pelas leis e tratados internacionais de direito autoral, marcas, patentes, modelos e desenhos industriais.
 <p></p>
-7.2. Ao acessar este sistema, os usuários declaram que irão respeitar todos os direitos de propriedade intelectual e os decorrentes da proteção de marcas, patentes e/ou desenhos industriais, depositados ou registrados em nome dos administradores do R, bem como de todos os direitos referentes a terceiros que porventura estejam, ou estiveram, de alguma forma, disponíveis no sistema. O simples acesso ao sistema não confere a estes qualquer direito ao uso dos nomes, títulos, palavras, frases, marcas, patentes, obras literárias, artísticas, lítero-musicais, imagens, dados e informações, dentre outras, que nele estejam ou estiveram disponíveis.
+7.2. Ao acessar este sistema, os usuários declaram que irão respeitar todos os direitos de propriedade intelectual e os decorrentes da proteção de marcas, patentes e/ou desenhos industriais, depositados ou registrados em nome dos Administradores do Remember, bem como de todos os direitos referentes a terceiros que porventura estejam, ou estiveram, de alguma forma, disponíveis no sistema. O simples acesso ao sistema não confere a estes qualquer direito ao uso dos nomes, títulos, palavras, frases, marcas, patentes, obras literárias, artísticas, lítero-musicais, imagens, dados e informações, dentre outras, que nele estejam ou estiveram disponíveis.
 <p></p>
-7.3. A reprodução dos conteúdos descritos anteriormente está proibida, salvo com prévia autorização por escrito dos administradores do R ou caso se destinem ao uso exclusivamente pessoal e sem que em nenhuma circunstância os visitantes e usuários adquiram qualquer direito sobre os mesmos.
+7.3. A reprodução dos conteúdos descritos anteriormente está proibida, salvo com prévia autorização por escrito dos Administradores do Remember ou caso se destinem ao uso exclusivamente pessoal e sem que em nenhuma circunstância os visitantes e usuários adquiram qualquer direito sobre os mesmos.
 <p></p>
-7.4. É permitido fazer somente o arquivo temporário deste sistema e de seu conteúdo, sendo vedada sua utilização para finalidades comerciais, publicitárias ou qualquer outra que contrarie a realidade para o qual foi concebido, conforme definido neste documento. Restam igualmente proibidas a reprodução, distribuição e divulgação, total ou parcial, dos textos, figuras, gráficos que compõem o presente sistema, sem prévia e expressa autorização dos administradores do R, sendo permitida somente a impressão de cópias para uso e arquivo pessoal, sem que sejam separadas as partes que permitam dar o fiel e real entendimento de seu conteúdo e objetivo.
+7.4. É permitido fazer somente o arquivo temporário deste sistema e de seu conteúdo, sendo vedada sua utilização para finalidades comerciais, publicitárias ou qualquer outra que contrarie a realidade para o qual foi concebido, conforme definido neste documento. Restam igualmente proibidas a reprodução, distribuição e divulgação, total ou parcial, dos textos, figuras, gráficos que compõem o presente sistema, sem prévia e expressa autorização dos Administradores do Remember, sendo permitida somente a impressão de cópias para uso e arquivo pessoal, sem que sejam separadas as partes que permitam dar o fiel e real entendimento de seu conteúdo e objetivo.
 <p></p>
 7.5. Os usuários assumem toda e qualquer responsabilidade, de caráter civil e/ou criminal, pela utilização indevida das informações, textos, gráficos, marcas, obras, imagens, enfim, de todo e qualquer direito de propriedade intelectual ou industrial deste sistema.
 <p></p>
-7.6. Qualquer outro tipo de utilização de material autorizado, inclusive para fins editoriais, comerciais ou publicitários, só poderá ser feito mediante prévio e expresso consentimento dos administradores do R. Os usuários estão cientes, através deste item, que o uso comercial não autorizado poderá incorrer em infrações cíveis e criminais, por estar infringindo a lei dos direitos autorais.
+7.6. Qualquer outro tipo de utilização de material autorizado, inclusive para fins editoriais, comerciais ou publicitários, só poderá ser feito mediante prévio e expresso consentimento dos Administradores do Remember. Os usuários estão cientes, através deste item, que o uso comercial não autorizado poderá incorrer em infrações cíveis e criminais, por estar infringindo a lei dos direitos autorais.
 <p></p>
-7.7. Qualquer reutilização do material autorizado deverá ser objeto de uma nova autorização dos administradores do R.
+7.7. Qualquer reutilização do material autorizado deverá ser objeto de uma nova autorização dos Administradores do Remember.
 <p></p>
 7.8. A autorização para utilização do material solicitado não poderá ser transferida a terceiros, mesmo que vinculados ao sujeito autorizado por alguma razão.
 <p></p>
 7.9. Qualquer utilização não contemplada na mencionada autorização será considerada como uma violação dos direitos de autor e sujeita às sanções cabíveis na Lei 9.610, de 19 de fevereiro de 1998, que protege os direitos autorais no Brasil.
 <p></p>
-7.10. A utilização das funcionalidades oferecidas se dará na forma de prestação de serviço, não conferindo ao usuário nenhum direito sobre o software utilizado pelos administradores do R ou de suas estruturas de informática que sustentam as aplicações de internet.
+7.10. A utilização das funcionalidades oferecidas se dará na forma de prestação de serviço, não conferindo ao usuário nenhum direito sobre o software utilizado pelos Administradores do Remember ou de suas estruturas de informática que sustentam as aplicações de internet.
 <p></p>
-7.11. A eventual retirada de qualquer conteúdo ou funcionalidade deste sistema, em decorrência de alguma reclamação, deverá ser sempre compreendida como uma demonstração de nossa intenção de evitar dissabores e, jamais, como reconhecimento de culpa ou de qualquer infração pelos administradores do R a direito de terceiro.
+7.11. A eventual retirada de qualquer conteúdo ou funcionalidade deste sistema, em decorrência de alguma reclamação, deverá ser sempre compreendida como uma demonstração de nossa intenção de evitar dissabores e, jamais, como reconhecimento de culpa ou de qualquer infração pelos Administradores do Remember a direito de terceiro.
 <p></p>
-7.12. Caso o visitante ou usuário enviar conteúdo para Os administradores do R por meio do Remember ou pelos canais divulgados que diga respeito a ideias para novos produtos, melhorias nos produtos já existentes, campanhas publicitárias ou qualquer outra ação de marketing, elas deixarão de pertencer ao patrimônio imaterial do visitante ou do usuário, ingressando no dos administradores do R, nada podendo reclamar neste sentido, sobretudo recompensa pecuniária pelo que foi enviado ou revisão nos modelos usados.
+7.12. Caso o visitante ou usuário enviar conteúdo para Os Administradores do Remember por meio do Sistema Remember ou pelos canais divulgados que diga respeito a ideias para novos produtos, melhorias nos produtos já existentes, campanhas publicitárias ou qualquer outra ação de marketing, elas deixarão de pertencer ao patrimônio imaterial do visitante ou do usuário, ingressando no dos Administradores do Remember, nada podendo reclamar neste sentido, sobretudo recompensa pecuniária pelo que foi enviado ou revisão nos modelos usados.
 <p></p>
-<font color="#000000"><strong>8 – Das funcionalidades do sistema Remember</strong></font>
+<font color="#000000"><strong>8 – Das funcionalidades do sistema Sistema Remember</strong></font>
 <p></p>
-8.1. O Remember oferece uma série de funcionalidades para fielização de clientes, a exemplo, mas não se limitando a:
+8.1. O Sistema Remember oferece uma série de funcionalidades para fielização de clientes, a exemplo, mas não se limitando a:
 <p></p>
 Cadastros de clientes, profissionais, produtos e serviços;
 <p></p>
@@ -736,23 +735,23 @@ Gerenciamento de vendas;
 <p></p>
 Gerenciamentos de retornos e hábitos de consumo;
 <p></p>
-8.2. Os administradores do R se valem de mecanismos de salvaguarda e proteção compatíveis com o estado atual da técnica para evitar perda de dados, mesmo em casos de incidentes ou desastres. No entanto, é o usuário quem deve tomar as cautelas necessárias, como a efetuação de backups periódicos dos dados inseridos para evitar prejuízos em caso de perda, inconsistência ou desastres que possam comprometer a base de dados do Remember.
+8.2. Os Administradores do Remember se valem de mecanismos de salvaguarda e proteção compatíveis com o estado atual da técnica para evitar perda de dados, mesmo em casos de incidentes ou desastres. No entanto, é o usuário quem deve tomar as cautelas necessárias, como a efetuação de backups periódicos dos dados inseridos para evitar prejuízos em caso de perda, inconsistência ou desastres que possam comprometer a base de dados do Sistema Remember.
 <p></p>
-8.2.1. Os administradores do R não se responsabilizam nos casos em que houver exclusão ou modificação acidental dos dados pelo usuário ou de quem utilizar sua conta de acesso indevidamente, tal qual não possui nenhuma obrigação para restaurar os dados em seu estágio anterior.
+8.2.1. Os Administradores do Remember não se responsabilizam nos casos em que houver exclusão ou modificação acidental dos dados pelo usuário ou de quem utilizar sua conta de acesso indevidamente, tal qual não possui nenhuma obrigação para restaurar os dados em seu estágio anterior.
 <p></p>
-8.2.2. De igual forma, Os administradores do R não estão obrigados a reparar algum prejuízo ocorrido pela inépcia de seus usuários em utilizar a ferramenta e a contratação dos serviços, o que não implica no dever de prestar qualquer espécie de treinamento sobre as funcionalidades oferecidas.
+8.2.2. De igual forma, Os Administradores do Remember não estão obrigados a reparar algum prejuízo ocorrido pela inépcia de seus usuários em utilizar a ferramenta e a contratação dos serviços, o que não implica no dever de prestar qualquer espécie de treinamento sobre as funcionalidades oferecidas.
 <p></p>
 8.3. Em regra, a utilização das funcionalidades necessita de pagamento prévio, salvo nos casos específicos e identificados pela própria plataforma.
 <p></p>
 8.4. Os valores pagos para a utilização dos módulos não são passíveis de devolução, ainda que haja desistência de uso das funcionalidades pelo usuário.
 <p></p>
-8.5. Para acessar a ferramenta é essencial a conectividade com a internet. Caso o usuário não disponha da conexão necessária, Os administradores do R não são obrigados a restituir nenhum valor já pago a título de indenização.
+8.5. Para acessar a ferramenta é essencial a conectividade com a internet. Caso o usuário não disponha da conexão necessária, Os Administradores do Remember não são obrigados a restituir nenhum valor já pago a título de indenização.
 <p></p>
-8.6. Em cumprimento dos requisitos legais sobre a Lei de Transparência Fiscal 12.741/2012, o sistema Remember opera seguindo o cálculo médio e a base de informação indicada e atualizada pelo IBPT (Instituto Brasileiro de Planejamento Tributário) para exibição da carga tributária em cupons e notas fiscais, sendo esta uma fonte idônea de informação que assume o cumprimento da lei em suas orientações e informações, não cabendo portanto edições por parte dos usuários e cabendo a este a decisão de adotar o Remember sob estas indicações.
+8.6. Em cumprimento dos requisitos legais sobre a Lei de Transparência Fiscal 12.741/2012, o sistema Sistema Remember opera seguindo o cálculo médio e a base de informação indicada e atualizada pelo IBPT (Instituto Brasileiro de Planejamento Tributário) para exibição da carga tributária em cupons e notas fiscais, sendo esta uma fonte idônea de informação que assume o cumprimento da lei em suas orientações e informações, não cabendo portanto edições por parte dos usuários e cabendo a este a decisão de adotar o Sistema Remember sob estas indicações.
 <p></p>
-8.7. Os termos específicos do contrato estabelecerão os níveis de serviço a serem cumpridos pelos administradores do R e as hipóteses de ressarcimento caso o sistema fique indisponível.
+8.7. Os termos específicos do contrato estabelecerão os níveis de serviço a serem cumpridos pelos Administradores do Remember e as hipóteses de ressarcimento caso o sistema fique indisponível.
 <p></p>
-8.8. Os administradores do R se reservam no direito de não publicar ou excluir conteúdos enviados pelos usuários, a qualquer tempo, sem prévio aviso e nenhum direito a indenização a quem quer que seja, que contiverem:
+8.8. Os Administradores do Remember se reservam no direito de não publicar ou excluir conteúdos enviados pelos usuários, a qualquer tempo, sem prévio aviso e nenhum direito a indenização a quem quer que seja, que contiverem:
 <p></p>
 Ofensa à honra, imagem, reputação e dignidade de terceiros;<br>
 Pornografia, pedofilia, e outras modalidades de satisfação sexual;<br>
@@ -762,34 +761,34 @@ Manifesta violação a direito autoral ou direito de imagem;<br>
 Utilização de marcas, símbolos, logotipos ou emblemas de terceiros;<br>
 Instigação ou apologia à prática de crimes, como tráfico ou uso de entorpecentes, estupro, homicídio, estelionato, dentre outros;<br>
 Uso da violência, disseminação de ódio ou qualquer outra forma de agressão ao bem estar físico de alguém;<br>
-Atividade comercial similar ao Remember ou que utilize a plataforma para angariar recursos por publicidade de terceiros ao invés de praticar a interação regular do ambiente;<br>
+Atividade comercial similar ao Sistema Remember ou que utilize a plataforma para angariar recursos por publicidade de terceiros ao invés de praticar a interação regular do ambiente;<br>
 Erros ou suspeita de equívocos.<br>
 <p></p>
 8.9. Os visitantes poderão se valer do canal de ‘Fale Conosco’ toda vez que presenciarem ou verificarem conteúdo impróprio no site.
 <p></p>
 8.9.1. A denúncia será sigilosa e preservará a identidade do visitante.
 <p></p>
-8.10. O usuário poderá excluir sua conta de acesso a qualquer tempo, sem necessidade de pagamento ou indenização aos administradores do R. Recomenda-se que o usuário efetue a salvaguarda de seus dados antes de cancelamento da conta de acesso.
+8.10. O usuário poderá excluir sua conta de acesso a qualquer tempo, sem necessidade de pagamento ou indenização aos Administradores do Remember. Recomenda-se que o usuário efetue a salvaguarda de seus dados antes de cancelamento da conta de acesso.
 <p></p>
-8.11. Os administradores do R se reservam o direito de inativar as contas de usuários que não realizarem nenhum acesso e/ou movimento em seu domínio nos prazo de 180 (cento e oitenta) dias corridos, sendo que nestes casos os dados e domínio da conta usuária serão resguardados e mantidos sob reserva pelo prazo de 180 (cento e oitenta) dias corridos a partir da inativação, podendo o usuário a qualquer momento, dentro deste prazo, reativar sua conta pelos mecanismos apontados pelos processos internos do sistema Remember.
+8.11. Os Administradores do Remember se reservam o direito de inativar as contas de usuários que não realizarem nenhum acesso e/ou movimento em seu domínio nos prazo de 180 (cento e oitenta) dias corridos, sendo que nestes casos os dados e domínio da conta usuária serão resguardados e mantidos sob reserva pelo prazo de 180 (cento e oitenta) dias corridos a partir da inativação, podendo o usuário a qualquer momento, dentro deste prazo, reativar sua conta pelos mecanismos apontados pelos processos internos do sistema Sistema Remember.
 <p></p>
-8.11.1. Caso o usuário não solicite a reativação dentro do prazo de 180 (cento e oitenta) dias após a sua inativação, Os administradores do R efetuarão a exclusão completa do usuário e seus dados do sistema Remember além da liberação do domínio para o uso de novos usuários, não cabendo volta, recuperação ou backup após esta ação.
+8.11.1. Caso o usuário não solicite a reativação dentro do prazo de 180 (cento e oitenta) dias após a sua inativação, Os Administradores do Remember efetuarão a exclusão completa do usuário e seus dados do sistema Sistema Remember além da liberação do domínio para o uso de novos usuários, não cabendo volta, recuperação ou backup após esta ação.
 <p></p>
-8.12. Os administradores do R se reservam o direito de excluir as contas de usuários que não realizarem a confirmação de sua instalação e cadastro dentro do prazo de 21 (vinte e um dias) corridos a partir da data de seu cadastramento, sendo que dentro deste prazo o usuário será informado e lembrado semanalmente através do seu e-mail que necessita confirmá-la, visto que não o tenha feito até então.
+8.12. Os Administradores do Remember se reservam o direito de excluir as contas de usuários que não realizarem a confirmação de sua instalação e cadastro dentro do prazo de 21 (vinte e um dias) corridos a partir da data de seu cadastramento, sendo que dentro deste prazo o usuário será informado e lembrado semanalmente através do seu e-mail que necessita confirmá-la, visto que não o tenha feito até então.
 <p></p>
-<font color="#000000"><strong>9 – Atendimento do Remember</strong></font>
+<font color="#000000"><strong>9 – Atendimento do Sistema Remember</strong></font>
 <p></p>
 9.1. Caso os haja alguma dúvida sobre as condições estabelecidas neste termo ou qualquer documento do website, por favor, envie um e-mail para adm.rsistema@gmail.com. Será um prazer ajudar a esclarecer qualquer de suas dúvidas.
 <p></p>
 <strong>10 – Modificações destes Termos e Condições</strong>
 <p></p>
-10.1. Os presentes Termos de Uso e Condições de Navegação estão sujeitos a constante melhoria e aprimoramento. Assim, Os administradores do R se reservam o direito de modificar a qualquer momento, de forma unilateral, o presente documento e sua Política de Privacidade.
+10.1. Os presentes Termos de Uso e Condições de Navegação estão sujeitos a constante melhoria e aprimoramento. Assim, Os Administradores do Remember se reservam o direito de modificar a qualquer momento, de forma unilateral, o presente documento e sua Política de Privacidade.
 <p></p>
 <font color="#000000"><strong>11 – Disposições Gerais</strong></font>
 <p></p>
-11.1. Haverá cancelamento ao uso da plataforma Remember na hipótese de decretação de falência ou processamento de recuperação judicial dos administradores do R ou do próprio usuário, se pessoa jurídica; se pessoa física, a declaração de insolvência civil.
+11.1. Haverá cancelamento ao uso da plataforma Sistema Remember na hipótese de decretação de falência ou processamento de recuperação judicial dos Administradores do Remember ou do próprio usuário, se pessoa jurídica; se pessoa física, a declaração de insolvência civil.
 <p></p>
-11.2. O usuário está de acordo que Os administradores do R poderão ceder os direitos e obrigações decorrentes destes Termos de Uso para qualquer outra empresa que seja sua controladora, controlada ou a ela coligada, total ou parcialmente, conforme sua conveniência e interesse, sem a necessidade de aviso prévio ou obrigação de indenização ou ressarcimento, sob qualquer pretexto.
+11.2. O usuário está de acordo que Os Administradores do Remember poderão ceder os direitos e obrigações decorrentes destes Termos de Uso para qualquer outra empresa que seja sua controladora, controlada ou a ela coligada, total ou parcialmente, conforme sua conveniência e interesse, sem a necessidade de aviso prévio ou obrigação de indenização ou ressarcimento, sob qualquer pretexto.
 <p></p>
 11.3. A tolerância do eventual descumprimento de quaisquer das cláusulas e condições do presente instrumento não constituirá novação das obrigações aqui estipuladas e tampouco impedirá ou inibirá a exigibilidade das mesmas a qualquer tempo.
 <p></p>
@@ -818,13 +817,13 @@ Erros ou suspeita de equívocos.<br>
                                 <h4 class="modal-title" id="myModalLabel2">Política de Privacidade</h4>
                             </div>
                             <div class="modal-body">
-                            	<p>Como parte integrante dos Termos de Uso e Condições de Navegação do <strong>Remember</strong>, este documento, denominado Política de Privacidade, tem por finalidade estabelecer as regras sobre a obtenção, uso e armazenamento dos dados e informações coletadas dos usuários, além do registro de suas atividades.
+                            	<p>Como parte integrante dos Termos de Uso e Condições de Navegação do <strong>Sistema Remember</strong>, este documento, denominado Política de Privacidade, tem por finalidade estabelecer as regras sobre a obtenção, uso e armazenamento dos dados e informações coletadas dos usuários, além do registro de suas atividades.
 <p></p>
 <font color="#000000"><strong>1 – Definições:</strong></font>
 <p></p>
 1.1. Para fins desta Política de Privacidade, aplicam-se as seguintes definições:
 <p></p>
-Cookies: Arquivos enviados pelo servidor do <strong>Remember</strong> para o computador dos usuários, com a finalidade de identificar o computador e obter dados de acesso, como páginas navegadas ou links clicados, permitindo, desta forma, personalizar a navegação dos usuários de acordo com o seu perfil.
+Cookies: Arquivos enviados pelo servidor do <strong>Sistema Remember</strong> para o computador dos usuários, com a finalidade de identificar o computador e obter dados de acesso, como páginas navegadas ou links clicados, permitindo, desta forma, personalizar a navegação dos usuários de acordo com o seu perfil.
 <p></p>
 Dados Anonimizados: Dados considerados sem a identificação de seu proprietário ou vinculação de quem se aponta. Dados sem rosto.
 <p></p>
@@ -836,25 +835,25 @@ Dados Sensíveis: Dados que possam discriminar o titular de alguma forma, seja p
 <p></p>
 IP: Abreviatura de Internet Protocol. É um conjunto de números que identifica o computador dos usuários na Internet.
 <p></p>
-Logs: Registros de atividades dos e usuários efetuadas no <strong>Remember</strong>.
+Logs: Registros de atividades dos e usuários efetuadas no <strong>Sistema Remember</strong>.
 <p></p>
-<strong>Remember</strong>: Designa o sistema o qual o usuário se utiliza aqui neste domínio e seus subdomínios.
+<strong>Sistema Remember</strong>: Designa o sistema o qual o usuário se utiliza aqui neste domínio e seus subdomínios.
 <p></p>
-Usuários: Pessoas que acessam ou interagem com as atividades oferecidas pelo <strong>Remember</strong>.
+Usuários: Pessoas que acessam ou interagem com as atividades oferecidas pelo <strong>Sistema Remember</strong>.
 <p></p>
 Web beacons: Linhas de programação em páginas HTML que tem como finalidade obter detalhes da navegação do usuário, a exemplo de quanto tempo ficou com um site aberto, qual endereço visitado em seguida, dentre outros.
 <p></p>
 <strong>2 – Obtenção dos Dados e Informações:</strong>
 <p></p>
-2.1. Os dados e informações serão obtidos quando os usuários interagirem com as diversas funcionalidades existentes no <strong>Remember</strong>. São exemplos de interação quando fornecem informações voluntariamente, dados de cadastro ou inserem dados sobre produtos, serviços e transações realizadas.
+2.1. Os dados e informações serão obtidos quando os usuários interagirem com as diversas funcionalidades existentes no <strong>Sistema Remember</strong>. São exemplos de interação quando fornecem informações voluntariamente, dados de cadastro ou inserem dados sobre produtos, serviços e transações realizadas.
 <p></p>
 <font color="#000000"><strong>3 – Armazenamento dos Dados e Informações:</strong></font>
 <p></p>
-3.1. Todos os dados e informações coletados dos usuários serão incorporados ao banco de dados do <strong>Remember</strong>, sendo seu responsável os <strong>Administradores do Sistema</strong>.
+3.1. Todos os dados e informações coletados dos usuários serão incorporados ao banco de dados do <strong>Sistema Remember</strong>, sendo seu responsável os <strong>Administradores do Sistema</strong>.
 <p></p>
 3.2. Os dados e informações coletados estarão armazenados em ambiente seguro, observado o estado da técnica disponível, e somente poderão ser acessadas por pessoas qualificadas e autorizadas pelos <strong>Administradores do Sistema</strong>.
 <p></p>
-3.3. Considerando que nenhum sistema de segurança é absolutamente seguro, os <strong>Administradores do Sistema</strong> se eximem de quaisquer responsabilidades por eventuais danos e/ou prejuízos decorrentes de falhas, vírus ou invasões do banco de dados do <strong>Remember</strong>, salvo nos casos comprovados de dolo ou culpa.
+3.3. Considerando que nenhum sistema de segurança é absolutamente seguro, os <strong>Administradores do Sistema</strong> se eximem de quaisquer responsabilidades por eventuais danos e/ou prejuízos decorrentes de falhas, vírus ou invasões do banco de dados do <strong>Sistema Remember</strong>, salvo nos casos comprovados de dolo ou culpa.
 <p></p>
 <font color="#000000"><strong>4. Uso dos Dados e Informações:</strong></font>
 <strong></strong>
@@ -863,16 +862,16 @@ Web beacons: Linhas de programação em páginas HTML que tem como finalidade ob
 Responder a eventuais dúvidas e solicitações dos usuários;<br>
 Cumprimento de ordem legal ou judicial;<br>
 Realizar operações em nome do usuário a partir de comandos executados na plataforma do R, incluindo a divulgação a terceiro sempre que indispensável, por exemplo, emitir uma Nota fiscal com seu certificado digital;<br>
-Para garantir a sua segurança no uso do Remember e para segurança de todos os usuários;<br>
+Para garantir a sua segurança no uso do Sistema Remember e para segurança de todos os usuários;<br>
 Constituir, defender ou exercer regularmente direitos em âmbito judicial ou administrativo;<br>
 Elaborar estatísticas gerais, para identificação do perfil dos usuários e desenvolvimento de campanhas dos <strong>Administradores do Sistema</strong>, mas sem realizar identificação pessoal. Terceiros poderão efetuar o registro das informações e o agrupamento dos dados;<br>
 Determinação de tendências de comércio e necessidades de fornecedores e consumidores por produtos ou serviços;<br>
 Manter atualizados os cadastros dos usuários para fins de contato por telefone, correio eletrônico, SMS, mala direta ou por outros meios de comunicação;<br>
-Informar a respeito de novidades, promoções e eventos dos <strong>Administradores do Sistema</strong>, especialmente do Remember;<br>
-Aumentar a visibilidade das campanhas de arrecadação de fundos e projetos ativos no <strong>Remember</strong>;<br>
+Informar a respeito de novidades, promoções e eventos dos <strong>Administradores do Sistema</strong>, especialmente do Sistema Remember;<br>
+Aumentar a visibilidade das campanhas de arrecadação de fundos e projetos ativos no <strong>Sistema Remember</strong>;<br>
 Proporcionar melhorias no conteúdo e serviços prestados.
 <p></p>
-4.2. A base de dados formada pelos <strong>Administradores do Sistema</strong> através da coleta dos dados do <strong>Remember</strong> não será compartilhada, vendida, cedida, transferida, informada ou alugada a terceiros.
+4.2. A base de dados formada pelos <strong>Administradores do Sistema</strong> através da coleta dos dados do <strong>Sistema Remember</strong> não será compartilhada, vendida, cedida, transferida, informada ou alugada a terceiros.
 <p></p>
 4.2.1. Em casos específicos, algumas informações anonimizadas poderão ser compartilhadas com parceiros comerciais, em especial, nas ações de marketing com participação relevante dos <strong>Administradores do Sistema</strong>.
 <p></p>
@@ -880,29 +879,29 @@ Proporcionar melhorias no conteúdo e serviços prestados.
 <p></p>
 4.2.3. Os <strong>Administradores do Sistema</strong> não são responsáveis pelo mau uso que parceiros comerciais ou contratados fizerem das informações fornecidas, pois está fora de sua esfera de vigilância e controle.
 <p></p>
-4.3. Dados adquiridos somente poderão ser acessados por profissionais devidamente autorizados pelos <strong>Administradores do Sistema</strong>, respeitando a necessidade a que serão submetidos, a relevância para os objetivos do <strong>Remember</strong> e aos interesses dos usuários, além de preservar a privacidade dos mesmos.
+4.3. Dados adquiridos somente poderão ser acessados por profissionais devidamente autorizados pelos <strong>Administradores do Sistema</strong>, respeitando a necessidade a que serão submetidos, a relevância para os objetivos do <strong>Sistema Remember</strong> e aos interesses dos usuários, além de preservar a privacidade dos mesmos.
 <p></p>
-4.4. Caso o usuário deixe de utilizar os serviços oferecidos pelo <strong>Remember</strong>, os <strong>Administradores do Sistema</strong> poderão, para fins de auditoria e preservação de direitos, permanecerem com o registro de dados e informações do usuário, pelo período máximo de 5 (cinco) anos, com a faculdade de excluí-los definitivamente segundo sua conveniência.
+4.4. Caso o usuário deixe de utilizar os serviços oferecidos pelo <strong>Sistema Remember</strong>, os <strong>Administradores do Sistema</strong> poderão, para fins de auditoria e preservação de direitos, permanecerem com o registro de dados e informações do usuário, pelo período máximo de 5 (cinco) anos, com a faculdade de excluí-los definitivamente segundo sua conveniência.
 <p></p>
-4.5. O usuário poderá exigir dos <strong>Administradores do Sistema</strong> os dados que estão registrados que lhe dizem respeito, da mesma forma que poderá solicitar a alteração ou exclusão dos mesmos. Para isso, deve entrar em contato através dos meios disponibilizados pelo <strong>Remember</strong>, caso não ofereça a funcionalidade correspondente.
+4.5. O usuário poderá exigir dos <strong>Administradores do Sistema</strong> os dados que estão registrados que lhe dizem respeito, da mesma forma que poderá solicitar a alteração ou exclusão dos mesmos. Para isso, deve entrar em contato através dos meios disponibilizados pelo <strong>Sistema Remember</strong>, caso não ofereça a funcionalidade correspondente.
 <p></p>
 4.6. Os <strong>Administradores do Sistema</strong> somente divulgarão as informações ou dados pessoais, caso exista consentimento expresso do usuário, quando houver determinação legal ou judicial.
 <p></p>
 <font color="#000000"><strong>5. Registro de Atividades:</strong></font>
 <p></p>
-5.1. Os <strong>Administradores do Sistema</strong> registrarão todas as atividades efetuadas pelos usuários no <strong>Remember</strong>, por meio de logs, incluindo:
+5.1. Os <strong>Administradores do Sistema</strong> registrarão todas as atividades efetuadas pelos usuários no <strong>Sistema Remember</strong>, por meio de logs, incluindo:
 <p></p>
 IP dos usuários;<br>
-Ações realizadas pelos usuários no <strong>Remember</strong>;<br>
+Ações realizadas pelos usuários no <strong>Sistema Remember</strong>;<br>
 Páginas acessadas;<br>
-Datas e horários de toda as ações e acesso a cada página do <strong>Remember</strong>;<br>
+Datas e horários de toda as ações e acesso a cada página do <strong>Sistema Remember</strong>;<br>
 Session ID (quando disponível).
 <p></p>
 5.2. Os registros mencionados no item 5.1 poderão ser utilizados pelos <strong>Administradores do Sistema</strong> em casos de investigação de fraudes ou de alterações indevidas em seus sistemas e cadastros.
 <p></p>
 <font color="#000000"><strong>6. Cookies e Outras Tecnologias de Obtenção de Dados:</strong></font>
 <p></p>
-6.1. O <strong>Remember</strong> poderá fazer o uso de cookies, cabendo aos usuários configurarem o seu navegador de Internet, caso deseje bloqueá-los. Nesta hipótese, algumas funcionalidades do <strong>Remember</strong> poderão ser limitadas.
+6.1. O <strong>Sistema Remember</strong> poderá fazer o uso de cookies, cabendo aos usuários configurarem o seu navegador de Internet, caso deseje bloqueá-los. Nesta hipótese, algumas funcionalidades do <strong>Sistema Remember</strong> poderão ser limitadas.
 <p></p>
 6.2. O sistema também poderá utilizar web beacons para coletar dados de comportamento dos usuários das páginas, onde a instalação de arquivos nos equipamentos não é necessária.
 <p></p>
@@ -910,7 +909,7 @@ Session ID (quando disponível).
 <p></p>
 <font color="#000000"><strong>7. Disposições Gerais:</strong></font>
 <p></p>
-7.1. As disposições constantes desta Política de Privacidade poderão ser atualizadas ou modificadas a qualquer momento, cabendo aos usuários verificá-la sempre que acessar o <strong>Remember</strong>. Navegar ou interagir com o <strong>Remember</strong> após atualizações/modificações será interpretado como uma concordância tácita às novas regras aplicadas.
+7.1. As disposições constantes desta Política de Privacidade poderão ser atualizadas ou modificadas a qualquer momento, cabendo aos usuários verificá-la sempre que acessar o <strong>Sistema Remember</strong>. Navegar ou interagir com o <strong>Sistema Remember</strong> após atualizações/modificações será interpretado como uma concordância tácita às novas regras aplicadas.
 <p></p>
 7.2. Caso os haja alguma dúvida sobre a nossa Política de Privacidade, por favor, entre em contato através do e-mail adm.rsistema@gmail.com. Será um prazer te ajudar!
 <p></p>

@@ -42,20 +42,20 @@
        					{% endfor %}
                         <br>
                         E-mail:
-                        {% render_field form.email class="form-control"%}
+                        {% render_field form.email class="form-control" placeholder="exemplo@exemplo.com" %}
                     	{% for error in form.email.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
                         <br>
                         Telefone:
-                        {% render_field form.telefone class="form-control"%}
+                        {% render_field form.telefone class="form-control" placeholder="(11)3212-0203" %}
                     	{% for error in form.telefone.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
                         {% if exibir_campo.p_celular == '1' %}
                         <br>
                         Celular:
-                        {% render_field form.celular class="form-control"%}
+                        {% render_field form.celular class="form-control" placeholder="Não inclua traços nem parentêses. Ex.:45999887766" %}
                     	{% for error in form.celular.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
@@ -63,7 +63,7 @@
                         {% if exibir_campo.p_data_nascimento == '1' %}
                         <br>
                         Data de Nascimento:
-                        {% render_field form.data_nascimento class="form-control"%}
+                        {% render_field form.data_nascimento class="form-control" placeholder="Ex.: 01/02/1950" %}
                     	{% for error in form.data_nascimento.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
@@ -76,13 +76,13 @@
       					<h4><i class="fa fa-angle-right"></i> Dados Complementares</h4>
                         {% if exibir_campo.p_endereco == '1' %}
 	      				Endereço completo:
-                        {% render_field form.endereco class="form-control"%}
+                        {% render_field form.endereco class="form-control" placeholder="Endereço completo"%}
                     	{% for error in form.endereco.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
                         <br>
                         Complemento:
-                        {% render_field form.compl class="form-control"%}
+                        {% render_field form.compl class="form-control" placeholder="apto, bloco, etc" %}
                     	{% for error in form.compl.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}

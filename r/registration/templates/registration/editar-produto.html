@@ -42,14 +42,14 @@
        					{% endfor %}
                         <br>
                         Periodicidade:
-                        {% render_field form.periodicidade class="form-control"%}
+                        {% render_field form.periodicidade class="form-control" placeholder="Informe em dias. Ex.: Se for 2 meses, coloque 60"%}
                     	{% for error in form.periodicidade.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
                         {% if exibir_campo.pr_custo == '1' %}
                         <br>
                         Custo:
-                        {% render_field form.custo class="form-control"%}
+                        {% render_field form.custo class="form-control" placeholder="Ex.: 11,85" %}
                     	{% for error in form.custo.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
@@ -57,7 +57,7 @@
                         {% if exibir_campo.pr_valor == '1' %}
                         <br>
                         Valor:
-                        {% render_field form.valor class="form-control"%}
+                        {% render_field form.valor class="form-control" placeholder="Ex.: 49,90" %}
                     	{% for error in form.valor.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}

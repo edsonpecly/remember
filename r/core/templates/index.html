@@ -57,10 +57,12 @@
             </li>
             <li class="active"><a href="#intro">Home</a></li>
             <li><a href="#precos">Planos</a></li>
+            <li><a href="#revenda">Seja Um Revendedor</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'home' %}">Acessar Sistema</a></li>
             <li><a href="{% url 'logout' %}">Sair</a></li>
             {% else %}
+            <li><a href="#simples">Simples de Usar</a></li>
             <li><a href="{% url 'login' %}">Entrar</a></li>
 			{% endif %}
           </ul>
@@ -163,7 +165,7 @@
 
       <div class="container">
         <div class="row text-center heading">
-          <h3><strong>R</strong>e<strong>m</strong>ember!</h3>
+          <h3><strong>R</strong>emember!</h3>
         </div>
 
 
@@ -204,35 +206,27 @@
     <!-- /Section: content -->
 
     <div class="divider-short"></div>
-    <section id="works" class="home-section text-center">
+    <section id="simples" class="home-section text-center">
       <div class="container">
         <div class="row text-center heading">
-          <h3>Screenshots</h3>
+          <h3>Simplicidade</h3>
         </div>
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12">
 
             <div class="row gallery-item">
-              <div class="col-md-3">
-                <a href="{% static 'site/img/works/tela_01.png' %}" title="Cadastro de Clientes" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/tela_01@2x.png' %}">
-								<img src="{% static 'site/img/works/tela_01.png' %}" class="img-responsive" alt="img">
-							</a>
-              </div>
-              <div class="col-md-3">
-                <a href="{% static 'site/img/works/tela_02.png' %}" title="Venda de Produto" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/tela_02@2x.png' %}">
-								<img src="{% static 'site/img/works/tela_02.png' %}" class="img-responsive" alt="img">
-							</a>
-              </div>
-              <div class="col-md-3">
-                <a href="{% static 'site/img/works/tela_03.png' %}" title="Configurações de Design" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/tela_03@2x.png' %}">
-								<img src="{% static 'site/img/works/tela_03.png' %}" class="img-responsive" alt="img">
-							</a>
-              </div>
-              <div class="col-md-3">
-                <a href="{% static 'site/img/works/tela_04.png' %}" title="Controle de Cadastros" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/tela_04@2x.png' %}">
-								<img src="{% static 'site/img/works/tela_04.png' %}" class="img-responsive" alt="img">
-							</a>
-              </div>
+              <div class="col-md-4">
+              	<p><strong>1 -</strong> Você cadastra um serviço/produto e informa a periodicidade de uso do mesmo</p>
+                <img src="{% static 'site/img/works/cadastroservico.png' %}" class="img-responsive" alt="img">
+			  </div>
+              <div class="col-md-4">
+              	<p><strong>2 -</strong> Lança a venda do serviço/produto para seu cliente</p>
+                <img src="{% static 'site/img/works/vendaservico.png' %}" class="img-responsive" alt="img">
+			  </div>
+              <div class="col-md-4">
+              	<p><strong>3 -</strong> Pronto! Automaticamente, quando chegar o momento do retorno do seu cliente, você será avisado e poderá entrar em contato com ele.</p>
+                <img src="{% static 'site/img/works/avisoretorno.png' %}" class="img-responsive" alt="img">
+			  </div>
             </div>
 
           </div>
@@ -256,22 +250,22 @@
                 			<center><img src="{% static 'site/img/ouro.png' %}"><br><br>
                 			<h5><strong>Plano OURO</strong></h5>
                             <p><span class="alert alert-success">Economize 33%</span></p>
-                            <p><small>R$ 95,88/ano</small></p>
-                            <p>Equivalente a <strong>R$ 7,99/mês</strong></p></center>
+                            <p><small>R$ 119,88/ano</small></p>
+                            <p>Equivalente a <strong>R$ 9,99/mês</strong></p></center>
               			</div>
                         <div class="col-md-4">
                 			<center><img src="{% static 'site/img/prata.png' %}"><br><br>
                 			<h5><strong>Plano Prata</strong></h5>
                             <p><span class="alert alert-warning">Economize 18%</span></p>
-                            <p><small>R$ 29,70/trimestre</small></p>
-                            <p>Equivalente a <strong>R$ 9,90/mês</strong></p></center>
+                            <p><small>R$ 35,97/trimestre</small></p>
+                            <p>Equivalente a <strong>R$ 11,99/mês</strong></p></center>
               			</div>
                         <div class="col-md-4">
                 			<center><img src="{% static 'site/img/bronze.png' %}"><br><br>
                 			<h5><strong>Plano Bronze</strong></h5>
                             <p><span class="alert alert-info">Pagamentos Mensais</span></p>
                             <p>Mensalidade</p>
-                            <p>de <strong>R$ 11,99</strong></p></center>
+                            <p>de <strong>R$ 14,99</strong></p></center>
               			</div>
                         <div class="col-md-12">
                         	<p></p>
@@ -279,6 +273,8 @@
                     </div>
                   </div>
                 </div>
+                {% if user.is_authenticated %}
+                {% else %}
                 <div class="col-md-12">
                   <div class="wow lightSpeedIn" data-wow-delay="0.1s">
                     <div class="cta-btn">
@@ -286,12 +282,67 @@
                    </div>
                   </div>
                 </div>
+                {% endif %}
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+    
+    <section id="revenda" class="home-section">
+
+      <div class="container">
+        <div class="row text-center heading">
+          <h3>Que tal ganhar um dinheiro extra?</h3>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="wow fadeInLeft" data-wow-delay="0.2s">
+              <img src="{% static 'site/img/revenda.png' %}" alt="" class="img-responsive" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="wow fadeInRight" data-wow-delay="0.3s">
+              <div class="features">
+                <i class="fa fa-check fa-2x circled bg-skin float-left"></i>
+                <h5>Sem Investimentos Iniciais</h5>
+                <p>
+                  Não precisa investir dinheiro algum! Só fazer o cadastro e aguardar o contato
+                </p>
+              </div>
+              <div class="features">
+                <i class="fa fa-check fa-2x circled bg-skin float-left"></i>
+                <h5>Comissão Recorrente*</h5>
+                <p>
+                  Enquanto o seu cliente usar o sistema, você recebe por isso!
+                </p>
+              </div>
+              <div class="features">
+                <i class="fa fa-check fa-2x circled bg-skin float-left"></i>
+                <h5>Controle total</h5>
+                <p>
+                  Você não fica no escuro. Após seu cadastro ser aprovado, você recebe um login e senha para acompanhar suas vendas
+                </p>
+              </div>
+              <div class="features">
+                <i class="fa fa-check fa-2x circled bg-skin float-left"></i>
+                <h5>O que está esperando?</h5>
+                <p>
+                   Solicite já seu acesso. Mas corre porque os cadastros são limitados!
+                   <p></p>
+                   <a href="{% url 'adm:cadastro_vendedor' %}" class="btn btn-skin btn-lg">Clique aqui</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- /Section: content -->
 
     <footer>
 
@@ -310,7 +361,7 @@
               <div class="wow fadeInLeft" data-wow-delay="0.1s">
                 <div class="text-left">
                   <p>Remember® 2017 &copy;Copyright - All rights reserved.</p>
-                  <p><small>1 - Sistema e dispositivo precisam ser compatíveis com HTML5. 2 - É necessário que o dispositivo tenha instalado o aplicativo WhatsApp. 3 - 1% do valor de cada plano é destinado para uma instituição de caridade</small></p>
+                  <p><small>1 - Sistema e dispositivo precisam ser compatíveis com HTML5. 2 - É necessário que o dispositivo tenha instalado o aplicativo WhatsApp. 3 - 1% do valor de cada plano é destinado para uma instituição de caridade. *O valor só estará disponível para saque, após o pagamento do cliente ser identificado</small></p>
                 </div>
               </div>
             </div>

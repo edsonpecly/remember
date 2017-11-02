@@ -4,6 +4,7 @@ from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from r.registration.models import Cliente
+from r.core.models import PeriodicidadeProduto, PeriodicidadeServico
 from .forms import VendaServicoForm, EditarVendaServicoForm, VendaProdutoForm, EditarVendaProdutoForm
 from .models import VendaServico, VendaProduto
 
@@ -20,8 +21,17 @@ def venda_servico(request):
             VendaServico.empresa = request.user.cod_empresa
             VendaServico.save()
             VendaServico.slug = (VendaServico.criaslug())
-            VendaServico.periodicidade = VendaServico.servico.periodicidade
-            VendaServico.retorno = date.fromordinal(VendaServico.data.toordinal() + int(VendaServico.periodicidade))
+            VendaServico.valor = VendaServico.qtd * VendaServico.servico.valor
+            cliente = VendaServico.cliente
+            servico = VendaServico.servico
+            if PeriodicidadeServico.objects.filter(cliente=cliente).filter(servico=servico).count() == 1:
+                pc_servico = PeriodicidadeServico.objects.filter(cliente=cliente).filter(servico=servico).get()
+                VendaServico.periodicidade = pc_servico.pc_servico
+                VendaServico.retorno = date.fromordinal(VendaServico.data.toordinal() + VendaServico.periodicidade)
+            else:
+                VendaServico.periodicidade = VendaServico.servico.periodicidade
+                VendaServico.retorno = date.fromordinal(VendaServico.data.toordinal() +
+                                                        int(VendaServico.periodicidade))
             form.save()
             messages.info(request, 'Venda realizada com sucesso!')
             return redirect('sale:rel_venda_servico')
@@ -50,7 +60,8 @@ def rel_venda_servico(request):
         results = None
     if query:
         try:
-            results = VendaServico.objects.filter(empresa=request.user.cod_empresa).filter(cliente__nome__icontains=query)
+            results = VendaServico.objects.filter(empresa=request.user.cod_empresa).filter(
+                cliente__nome__icontains=query)
         except VendaServico.DoesNotExist:
             results = None
     try:
@@ -79,6 +90,69 @@ def detalhe_venda_servico(request, slug):
     request.session['cache_detalhe_venda_servico'] = cache_detalhe_venda_servico
     if len(str(detalhe_venda_servico.id)) < 3:
         format_campo = '00'
+    cliente = detalhe_venda_servico.cliente
+    servico = detalhe_venda_servico.servico
+    if PeriodicidadeServico.objects.filter(cliente=cliente).filter(servico=servico).count() == 1:
+        var = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).count()
+        contagem = 0
+        contagem_2 = 1
+        nova_periodicidade = 0
+        while contagem < var > contagem_2:
+            x = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).order_by('data')[contagem]
+            y = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).order_by('data')[contagem_2]
+            nova_periodicidade = x.data.toordinal() - y.data.toordinal() + nova_periodicidade
+            contagem += 1
+            contagem_2 += 1
+        pc_servico = abs(nova_periodicidade // (var - 1))
+        z_1 = 0
+        contagem_3 = 0
+        contagem_4 = 1
+        while contagem_3 < var > contagem_4:
+            x = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).order_by('data')[contagem_3]
+            y = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).order_by('data')[contagem_4]
+            z = (abs((x.data.toordinal() - y.data.toordinal())) - pc_servico)
+            z_1 = (z * z) + z_1
+            contagem_3 += 1
+            contagem_4 += 1
+        d = z_1
+        r = d / (var - 1)
+        desvio_padrao = r ** (1 / 2)
+        cv = (desvio_padrao / pc_servico) * 100
+        if cv < 30:
+            PeriodicidadeServico.objects.filter(cliente=cliente).filter(servico=servico).update(pc_servico=pc_servico)
+    else:
+        var = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).count()
+        if var > 3:
+            contagem = 0
+            w = 1
+            nova_periodicidade = 0
+            while contagem < var > w:
+                x = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).order_by('data')[contagem]
+                y = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).order_by('data')[w]
+                nova_periodicidade = x.data.toordinal() - y.data.toordinal() + nova_periodicidade
+                contagem += 1
+                w += 1
+            pc_servico = abs(nova_periodicidade // (var - 1))
+            z_1 = 0
+            contagem_3 = 0
+            contagem_4 = 1
+            while contagem_3 < var > contagem_4:
+                x = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).order_by('data')[contagem_3]
+                y = VendaServico.objects.filter(cliente=cliente).filter(servico=servico).order_by('data')[contagem_4]
+                z = (abs((x.data.toordinal() - y.data.toordinal())) - pc_servico)
+                z_1 = (z * z) + z_1
+                contagem_3 += 1
+                contagem_4 += 1
+            d = z_1
+            r = d / (var - 1)
+            desvio_padrao = r ** (1 / 2)
+            cv = (desvio_padrao / pc_servico) * 100
+            if cv < 30:
+                novo_registro = PeriodicidadeServico(cliente=cliente, servico=servico, pc_servico=pc_servico)
+                novo_registro.save()
+                cria_slug = PeriodicidadeServico.objects.filter(cliente=cliente).filter(servico=servico).get()
+                cria_slug.slug = cria_slug.criaslug()
+                cria_slug.save()
     context = {
         'detalhe_venda_servico': detalhe_venda_servico,
         'var_detalhe_venda_servico': var_detalhe_venda_servico,
@@ -140,8 +214,17 @@ def venda_produto(request):
             VendaProduto.empresa = request.user.cod_empresa
             VendaProduto.save()
             VendaProduto.slug = (VendaProduto.criaslug())
-            VendaProduto.periodicidade = VendaProduto.produto.periodicidade
-            VendaProduto.nova_compra = date.fromordinal(VendaProduto.data.toordinal() + int(VendaProduto.periodicidade))
+            VendaProduto.valor = (VendaProduto.qtd) * (VendaProduto.produto.valor)
+            cliente = VendaProduto.cliente
+            produto = VendaProduto.produto
+            if PeriodicidadeProduto.objects.filter(cliente=cliente).filter(produto=produto).count() == 1:
+                pc_produto = PeriodicidadeProduto.objects.filter(cliente=cliente).filter(produto=produto).get()
+                VendaProduto.periodicidade = pc_produto.pc_produto
+                VendaProduto.nova_compra = date.fromordinal(VendaProduto.data.toordinal() + VendaProduto.periodicidade)
+            else:
+                VendaProduto.periodicidade = VendaProduto.produto.periodicidade
+                VendaProduto.nova_compra = date.fromordinal(VendaProduto.data.toordinal() +
+                                                            int(VendaProduto.periodicidade))
             form.save()
             messages.info(request, 'Venda realizada com sucesso!')
             return redirect('sale:rel_venda_produto')
@@ -200,10 +283,73 @@ def detalhe_venda_produto(request, slug):
     request.session['cache_detalhe_venda_produto'] = cache_detalhe_venda_produto
     if len(str(detalhe_venda_produto.id)) < 3:
         format_campo = '00'
+    cliente = detalhe_venda_produto.cliente
+    produto = detalhe_venda_produto.produto
+    if PeriodicidadeProduto.objects.filter(cliente=cliente).filter(produto=produto).count() == 1:
+        var = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).count()
+        contagem = 0
+        contagem_2 = 1
+        nova_periodicidade = 0
+        while contagem < var > contagem_2:
+            x = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).order_by('data')[contagem]
+            y = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).order_by('data')[contagem_2]
+            nova_periodicidade = x.data.toordinal() - y.data.toordinal() + nova_periodicidade
+            contagem += 1
+            contagem_2 += 1
+        pc_produto = abs(nova_periodicidade // (var - 1))
+        z_1 = 0
+        contagem_3 = 0
+        contagem_4 = 1
+        while contagem_3 < var > contagem_4:
+            x = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).order_by('data')[contagem_3]
+            y = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).order_by('data')[contagem_4]
+            z = (abs((x.data.toordinal() - y.data.toordinal())) - pc_produto)
+            z_1 = (z * z) + z_1
+            contagem_3 += 1
+            contagem_4 += 1
+        d = z_1
+        r = d / (var - 1)
+        desvio_padrao = r ** (1 / 2)
+        cv = (desvio_padrao / pc_produto) * 100
+        if cv < 30:
+            PeriodicidadeProduto.objects.filter(cliente=cliente).filter(produto=produto).update(pc_produto=pc_produto)
+    else:
+        var = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).count()
+        if var > 3:
+            contagem = 0
+            w = 1
+            nova_periodicidade = 0
+            while contagem < var > w:
+                x = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).order_by('data')[contagem]
+                y = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).order_by('data')[w]
+                nova_periodicidade = x.data.toordinal() - y.data.toordinal() + nova_periodicidade
+                contagem += 1
+                w += 1
+            pc_produto = abs(nova_periodicidade // (var - 1))
+            z_1 = 0
+            contagem_3 = 0
+            contagem_4 = 1
+            while contagem_3 < var > contagem_4:
+                x = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).order_by('data')[contagem_3]
+                y = VendaProduto.objects.filter(cliente=cliente).filter(produto=produto).order_by('data')[contagem_4]
+                z = (abs((x.data.toordinal() - y.data.toordinal())) - pc_produto)
+                z_1 = (z * z) + z_1
+                contagem_3 += 1
+                contagem_4 += 1
+            d = z_1
+            r = d / (var - 1)
+            desvio_padrao = r ** (1 / 2)
+            cv = (desvio_padrao / pc_produto) * 100
+            if cv < 30:
+                novo_registro = PeriodicidadeProduto(cliente=cliente, produto=produto, pc_produto=pc_produto)
+                novo_registro.save()
+                cria_slug = PeriodicidadeProduto.objects.filter(cliente=cliente).filter(produto=produto).get()
+                cria_slug.slug = cria_slug.criaslug()
+                cria_slug.save()
     context = {
         'detalhe_venda_produto': detalhe_venda_produto,
         'var_detalhe_venda_produto': var_detalhe_venda_produto,
-        'format_campo': format_campo
+        'format_campo': format_campo,
     }
     return render(request, template_name, context)
 

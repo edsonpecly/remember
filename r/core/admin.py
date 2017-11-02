@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, DesignSystem, ControleCadastro, ConfigsSistema, PasswordReset
+from .models import (User, DesignSystem, ControleCadastro, ConfigsSistema, PasswordReset, PeriodicidadeProduto,
+                     PeriodicidadeServico)
 from .forms import UserAdminCreationForm, UserAdminForm
 
 
@@ -52,8 +53,20 @@ class ConfigsSistemaAdmin(admin.ModelAdmin):
     search_fields = ['usuario']
 
 
+class PeriodicidadeProdutoAdmin(admin.ModelAdmin):
+    list_display = ['cliente', 'produto', 'pc_produto']
+    search_fields = ['cliente_nome']
+
+
+class PeriodicidadeServicoAdmin(admin.ModelAdmin):
+    list_display = ['cliente', 'servico', 'pc_servico']
+    search_fields = ['cliente_nome']
+
+
 admin.site.register(User, UserAdmin)
 admin.site.register(DesignSystem, DesignSystemAdmin)
 admin.site.register(ControleCadastro, ControleCadastroAdmin)
 admin.site.register(ConfigsSistema, ConfigsSistemaAdmin)
 admin.site.register(PasswordReset, PasswordResetAdmin)
+admin.site.register(PeriodicidadeProduto, PeriodicidadeProdutoAdmin)
+admin.site.register(PeriodicidadeServico, PeriodicidadeServicoAdmin)

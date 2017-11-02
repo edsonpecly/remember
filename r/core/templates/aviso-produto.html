@@ -60,21 +60,20 @@
 {% else %}
 <div class="row mt">
 	<div class="col-lg-6 col-md-6 col-sm-12">
+    {% if contagem_painel_produto == 0 %}
+        <div class="alert alert-{% if cores.cor_pn_produto == '1' %}warning{% elif cores.cor_pn_produto == '2' %}danger{% elif cores.cor_pn_produto == '4' %}info{% else %}success{% endif %}">
+        <p>Nenhum aviso no momento</p>
+        </div>
+        {% else %}
     	<div class="showback">
         	<table class="table">
     			<thead>
-                	{% if contagem_painel_produto == 0 %}
-                    <tr>
-                    	<th></th>
-					</tr>
-                    {% else %}
-					<tr>
+                	<tr>
                     	<th>Cliente</th>
                         <th>Produto</th>
                         <th>Nova Compra</th>
                         <th><i class="glyphicon glyphicon-envelope"></i></th>
 					</tr>
-                    {% endif %}
 				</thead>
                 <tbody>
                 	{% for vendaproduto in p_aviso %}
@@ -83,17 +82,14 @@
                     	<td>{{ vendaproduto.cliente }}</td>
                         <td>{{ vendaproduto.produto }}</td>
                         <td>{{ vendaproduto.nova_compra|date:"d/m/Y" }}</td>
-                        <td><a href="{{ vendaproduto.get_absolute_url }}" class="btn btn-{% if cores.cor_pn_retorno == '1' %}warning{% elif cores.cor_pn_retorno == '2' %}danger{% elif cores.cor_pn_retorno == '4' %}primary{% else %}theme02{% endif %} btn-xs" title="Avisar Cliente"><i class="glyphicon glyphicon-send"></i></a></td>
+                        <td><a href="{{ vendaproduto.get_absolute_url }}" class="btn btn-{% if cores.cor_pn_produto == '1' %}warning{% elif cores.cor_pn_produto == '2' %}danger{% elif cores.cor_pn_produto == '4' %}primary{% else %}theme02{% endif %} btn-xs" title="Avisar Cliente"><i class="glyphicon glyphicon-send"></i></a></td>
 					</tr>
                     {% endif %}
-                    {% empty %}
-                    <tr>
-                    	<td>Nenhum aviso no momento</td>
-                    </tr>
-            		{% endfor %}
+                    {% endfor %}
 				</tbody> 
             </table>            	
         </div>
+        {% endif %}
 	</div>
 </div>
 {% endif %}		

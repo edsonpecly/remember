@@ -6,7 +6,7 @@ from r.registration.models import Cliente, Profissional, Servico, Produto
 class VendaServicoForm(forms.ModelForm):
     class Meta:
         model = VendaServico
-        fields = ['cliente', 'servico', 'profissional', 'observacao']
+        fields = ['cliente', 'servico', 'profissional', 'observacao', 'qtd']
         list_filter = ['cliente']
 
     def __init__(self, user, *args, **kwargs):
@@ -26,7 +26,7 @@ class EditarVendaServicoForm(forms.ModelForm):
 class VendaProdutoForm(forms.ModelForm):
     class Meta:
         model = VendaProduto
-        fields = ['cliente', 'produto', 'profissional', 'observacao']
+        fields = ['cliente', 'produto', 'profissional', 'observacao', 'qtd']
         list_filter = ['cliente']
 
     def __init__(self, user, *args, **kwargs):

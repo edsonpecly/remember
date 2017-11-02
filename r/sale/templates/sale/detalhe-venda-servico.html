@@ -35,7 +35,7 @@
             <p><strong>WhatsApp:</strong> {{ detalhe_venda_servico.cliente.whatsapp }}</p>
             <p><strong>E-mail:</strong> {{ detalhe_venda_servico.cliente.email }}</p>
             {% if exibir_campo.s_valor == '1' %}
-            <p><strong>Valor da Venda:</strong> R$ {{ detalhe_venda_servico.servico.valor }}</p>
+            <p><strong>Valor da Venda:</strong> R$ {{ detalhe_venda_servico.valor }}</p>
             {% endif %}
             <p><strong>Data de Realização:</strong> {{ detalhe_venda_servico.data|date:"d/m/Y" }}</p>
             <p><strong>Periodicidade do Serviço:</strong> {{ detalhe_venda_servico.periodicidade }}</p>

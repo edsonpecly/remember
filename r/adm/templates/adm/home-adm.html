@@ -1,0 +1,108 @@
+{% extends "adm/base-adm.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block 1 %}
+	<!-- Bootstrap core CSS -->
+    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
+    <!--external css-->
+    <link href="{% static 'assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+        
+    <!-- Custom styles for this template -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style-responsive.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/lineicons/style.css' %}">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+{% endblock %}
+{% block 2 %}
+	<!--main content start-->
+      <h3><i class="fa fa-home"></i> Home</h3>
+          	<div class="row mt">
+          		<div align="center" class="col-lg-12">
+                	
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                    	<a href="{% url 'adm:venc_planos' %}" class="btn btn-warning btn-block">
+                        	Mensalidades:
+                            <h3>{{ contagem_venc }}</h3>
+                        </a>
+                        <a href="{% url 'adm:solicitacao_acesso' %}" class="btn btn-success btn-block">
+                        	Novos Clientes:
+                            <h3>{{ c_aprovacao }}</h3>
+                        </a>
+                        <a href="" class="btn btn-info btn-block">
+                        	Solicitação Vendedores:
+                            <h3>10</h3>
+                        </a>
+                    </div>                    
+                    
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                    	<a href="{% url 'adm:adm_clientes_boleto' %}" class="btn btn-theme03 btn-block">
+                        	Clientes Boleto/Depósito:
+                            <h3>{{ clientes_boleto }}</h3>
+                        </a>
+                        <a href="{% url 'adm:solicitacao_acesso_boleto' %}" class="btn btn-info btn-block">
+                        	Novos: <br>
+                            <h3>{{ c_sol_pagamento }}</h3>
+                        </a>
+                        <a href="{% url 'adm:venc_planos_boleto' %}" class="btn btn-danger btn-block">
+                        	Mensalidades: <br>
+                            <h3>{{ contagem_venc_boleto }}</h3>
+                        </a>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                    	<div class="white-panel pn donut-chart">
+                        	<br>
+                        	<h4>Solicitações de Suporte:</h4>
+                            <p><strong>Alterações de Plano: </strong>{% if c_suporte_1 == 0 %}{{ c_suporte_1 }}{% else %}<a href="">{{ c_suporte_1 }} </a>{% endif %}</p>
+                            <p><strong>Regularização de Conta: </strong>{% if c_suporte_2 == 0 %}{{ c_suporte_2 }}{% else %}<a href="">{{ c_suporte_2 }} </a>{% endif %}</p>
+                            <p><strong>Alteração Método Pagamento: </strong>{% if c_suporte_3 == 0 %}{{ c_suporte_3 }}{% else %}<a href="">{{ c_suporte_3 }} </a>{% endif %}</p>
+                            <p><strong>Dúvidas/ Críticas/ Sugestões: </strong>{% if c_suporte_4 == 0 %}{{ c_suporte_4 }}{% else %}<a href="">{{ c_suporte_4 }} </a>{% endif %}</p>
+                            <p><strong>Cancelamento de Assinatura: </strong>{% if c_suporte_5 == 0 %}{{ c_suporte_5 }}{% else %}<a href="">{{ c_suporte_5 }} </a>{% endif %}</p>
+                            <p><strong>Outras: </strong>{% if c_suporte_6 == 0 %}{{ c_suporte_6 }}{% else %}<a href="">{{ c_suporte_6 }} </a>{% endif %}</p>
+                        </div>
+                    </div>
+                    
+                </div>
+          	</div>
+			
+		</section><! --/wrapper -->
+      </section><!-- /MAIN CONTENT -->
+
+      <!--main content end-->
+{% endblock %}
+{% block 3 %}
+	<!-- js placed at the end of the document so the pages load faster -->
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-ui-1.9.2.custom.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.ui.touch-punch.min.js' %}"></script>
+    <script class="include" type="text/javascript" src="{% static 'assets/js/jquery.dcjqaccordion.2.7.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.scrollTo.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+
+
+    <!--common script for all pages-->
+    <script src="{% static 'assets/js/common-scripts.js' %}"></script>
+
+    <!--script for this page-->
+    
+  <script>
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+  </script>
+
+  </body>
+</html>
+{% endblock %}

@@ -4,6 +4,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.core import validators
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from r.registration.models import Produto, Servico, Cliente
+from r.adm.models import Vendedor
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -11,24 +13,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         'Nome de Usuário', max_length=30, unique=True,
         validators=[validators.RegexValidator(re.compile('^[\w.@+-]+$'),
                                               'O nome de usuário só pode  conter letras, números ou os seguintes '
-                                              'caracteres @/./+/-/_',
+                                              'caracteres @/./+/-/_ Não pode conter espaço no username',
                                               'invalid')]
     )
     email = models.EmailField('E-mail', unique=True)
     name = models.CharField('Seu Nome', max_length=20, blank=True, null=True)
     nome_empresa = models.CharField('Nome da Empresa', max_length=24, blank=True, null=True)
-    VENDEDOR = (
-        ('0', 'Sem Vendedor'),
-        ('1', 'Edson Pecly'),
-        ('2', 'Graziele Pecly'),
-        ('3', 'Diego Fernando')
-    )
-    vendedor = models.CharField('Vendedor Responsável', default='0', choices=VENDEDOR, max_length=10, blank=True, null=True)
-    permissao = models.CharField('Nivel Permissão', max_length=2, blank=True, null=True)  # 0=inativo 5=empresa 10=admin
+    vendedor = models.ForeignKey(Vendedor, verbose_name='Vendedor Responsável', blank=True, null=True)
+    permissao = models.PositiveIntegerField('Nivel Permissão', blank=True, null=True)  # 0=novo 1=alerta 2=devedor
+    # 3=bloqueado 5=empresa 10=admin 15=vendedor
     PLANO_CHOICES = (
-        ('1', 'Ouro - R$ 95,88/ano'),
-        ('2', 'Prata - R$ 29,70/trimestre'),
-        ('3', 'Bronze - R$ 11,99/mês ')
+        ('1', 'Ouro - R$ 119,88/ano'),
+        ('2', 'Prata - R$ 35,97/trimestre'),
+        ('3', 'Bronze - R$ 14,99/mês ')
     )
     plano = models.CharField('Plano', max_length=10, choices=PLANO_CHOICES, blank=True, null=True)
     inicio_ciclo = models.DateField('Inicio do Ciclo', null=True, blank=True)
@@ -199,3 +196,47 @@ class ConfigsSistema(models.Model):
     class Meta:
         verbose_name = 'Configuração do Sistema'
         verbose_name_plural = 'Configurações do Sistema'
+
+
+class PeriodicidadeProduto(models.Model):
+    cliente = models.ForeignKey(
+        Cliente, verbose_name='Cliente', related_name='p_cliente_produto', blank=True, null=True
+    )
+    produto = models.ForeignKey(Produto, verbose_name='Produto', related_name='p_produto', blank=True, null=True)
+    pc_produto = models.PositiveIntegerField('Periodicidade Cliente - Produto', null=True, blank=True)
+    slug = models.SlugField('URL', max_length=100, null=True, blank=True)
+    created_at = models.DateTimeField('Criado em', auto_now_add=True, null=True)
+    update_at = models.DateTimeField('Atualizado em', auto_now=True, null=True)
+
+    def criaslug(self):
+        return slugify(str(self.id))
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('periodicidade_produto', (), {'slug': self.slug})
+
+    class Meta:
+        verbose_name = 'Consumo Cliente Produto'
+        verbose_name_plural = 'Consumos Clientes Produtos'
+
+
+class PeriodicidadeServico(models.Model):
+    cliente = models.ForeignKey(
+        Cliente, verbose_name='Cliente', related_name='p_cliente_servico', blank=True, null=True
+    )
+    servico = models.ForeignKey(Servico, verbose_name='Serviço', related_name='p_servico', blank=True, null=True)
+    pc_servico = models.PositiveIntegerField('Periodicidade Cliente - Serviço', null=True, blank=True)
+    slug = models.SlugField('URL', max_length=100, null=True, blank=True)
+    created_at = models.DateTimeField('Criado em', auto_now_add=True, null=True)
+    update_at = models.DateTimeField('Atualizado em', auto_now=True, null=True)
+
+    def criaslug(self):
+        return slugify(str(self.id))
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('periodicidade_servico', (), {'slug': self.slug})
+
+    class Meta:
+        verbose_name = 'Consumo Cliente Servico'
+        verbose_name_plural = 'Consumos Clientes Servicos'

@@ -35,7 +35,8 @@
             <p><strong>WhatsApp:</strong> {{ detalhe_venda_produto.cliente.whatsapp }}</p>
             <p><strong>E-mail:</strong> {{ detalhe_venda_produto.cliente.email }}</p>
             {% if exibir_campo.s_valor == '1' %}
-            <p><strong>Valor da Venda:</strong> R$ {{ detalhe_venda_produto.produto.valor }}</p>
+            <p><strong>Quantidade:</strong> {{ detalhe_venda_produto.qtd }}</p>
+            <p><strong>Valor da Venda:</strong> R$ {{ detalhe_venda_produto.valor }}</p>
             {% endif %}
             <p><strong>Data de Realização:</strong> {{ detalhe_venda_produto.data|date:"d/m/Y" }}</p>
             <p><strong>Periodicidade de Consumo:</strong> {{ detalhe_venda_produto.periodicidade }}</p>

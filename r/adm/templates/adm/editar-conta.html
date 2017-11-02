@@ -23,173 +23,178 @@
   <body>
 {% endblock %}
 {% block 2 %}
-	<!--main content start-->
-      <section id="main-content">
-        <section class="wrapper">
-          	<h3><i class="fa fa-angle-right"></i> Editar Informações</h3>
-          	
-          	<!-- BASIC FORM ELELEMNTS -->
-       	  <div class="row mt">
-          		<div class="col-lg-6 col-md-6 col-sm-12">
-                  <div class="form-panel">
-                      <form class="form-horizontal style-form" method="post">
-                      	{% csrf_token %}
-                		{% for error in form.non_field_errors %}
-						<div class="alert alert-danger">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-						{{ error }}
- 						</div>
-                		{% endfor %}
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Username:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.username class="form-control"%}
-                    		  {% for error in form.username.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>E-mail:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.email class="form-control"%}
-                    		  {% for error in form.email.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Nome:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.name class="form-control"%}
-                    		  {% for error in form.name.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Empresa:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.nome_empresa class="form-control"%}
-                    		  {% for error in form.nome_empresa.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Nível de Permissão:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.permissao class="form-control"%}
-                    		  {% for error in form.permissao.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Plano:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.plano class="form-control"%}
-                    		  {% for error in form.plano.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Tipo de Pagamento:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.tipo_pagamento class="form-control"%}
-                    		  {% for error in form.tipo_pagamento.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Status Solicitação:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.status_atendimento class="form-control"%}
-                    		  {% for error in form.status_atendimento.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Inicio do Ciclo:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.inicio_ciclo class="form-control"%}
-                    		  {% for error in form.inicio_ciclo.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Final do Ciclo:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.fim_ciclo class="form-control"%}
-                    		  {% for error in form.fim_ciclo.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>CNPJ:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.cnpj class="form-control"%}
-                    		  {% for error in form.cnpj.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Endereço:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.endereco class="form-control"%}
-                    		  {% for error in form.endereco.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>Telefone:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.telefone class="form-control"%}
-                    		  {% for error in form.telefone.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label"><strong>WhatsApp:</strong></label>
-                              <div class="col-lg-10">
-                              {% render_field form.whatsapp class="form-control"%}
-                    		  {% for error in form.whatsapp.errors %}
-       						  <span class="help-block">{{ error }}</span>
-       						  {% endfor %}
-                              </div>
-                          </div>
-                          
-                          <div align="left"><a href="{% url 'adm:venc_planos' %}" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Cancelar</a> <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Salvar</button></div>
-                      </form>
-                  </div>
-          		</div><!-- col-lg-12-->      	
-       	  </div><!-- /row -->
-          
-         </section><! --/wrapper -->
-      </section><!-- /MAIN CONTENT -->
-
-      <!--main content end-->
+<h3>Editar Informações</h3>
+<div class="col-lg-12">
+    	<div class="col-lg-8 col-md-8 col-sm-8 mb">
+        	<div class="form-panel">
+            <h4><strong>Informações de Acesso</strong></h4>
+            	<form class="form-horizontal style-form" method="post">
+                	{% csrf_token %}
+                    {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ error }}
+					</div>
+					{% endfor %}
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Username:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.username class="form-control"%}
+                            {% for error in form.username.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>E-mail:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.email class="form-control"%}
+                            {% for error in form.email.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Nome:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.name class="form-control"%}
+                            {% for error in form.name.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Nivel de Permissao:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.permissao class="form-control"%}
+                            {% for error in form.permissao.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <h4><strong>Informações de Pagamento</strong></h4><p></p>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Plano:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.plano class="form-control"%}
+                            {% for error in form.plano.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Forma de Pagamento:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.tipo_pagamento class="form-control"%}
+                            {% for error in form.tipo_pagamento.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Inicio do Ciclo:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.inicio_ciclo class="form-control"%}
+                            {% for error in form.inicio_ciclo.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Final do Ciclo:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.fim_ciclo class="form-control"%}
+                            {% for error in form.fim_ciclo.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Vendedor:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.vendedor class="form-control"%}
+                            {% for error in form.vendedor.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <h4><strong>Informações Gerais</strong></h4><p></p>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Empresa:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.nome_empresa class="form-control"%}
+                            {% for error in form.nome_empresa.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>CNPJ:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.cnpj class="form-control"%}
+                            {% for error in form.cnpj.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Endereço:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.endereco class="form-control"%}
+                            {% for error in form.endereco.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>Telefone:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.telefone class="form-control"%}
+                            {% for error in form.telefone.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div class="form-group">
+                    	<label class="col-lg-2 col-sm-2 control-label"><strong>WhatsApp:</strong></label>
+                        <div class="col-lg-9">
+                        	{% render_field form.whatsapp class="form-control"%}
+                            {% for error in form.whatsapp.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+						</div>
+					</div>
+                    
+                    <div align="left">
+                    	<a href="{% url 'adm:adm_clientes' %}" class="btn btn-danger">
+                        	<span class="glyphicon glyphicon-remove"></span> Cancelar
+						</a> 
+                        <button type="submit" class="btn btn-primary">
+                        	<span class="glyphicon glyphicon-ok"></span> Salvar
+						</button>
+					</div>
+				</form>
+            </div>
+        </div>
+</div>
+</section>
+</section>
 {% endblock %}
 {% block 3 %}
 	 <!-- js placed at the end of the document so the pages load faster -->

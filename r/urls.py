@@ -40,5 +40,7 @@ urlpatterns = [
     ),
     url(r'^em-construcao/', views.blank, name='blank'),
     url(r'^aguarde-aprovacao/', views.aguarde_aprovacao, name='aguarde_aprovacao'),
+    url(r'^acesso-negado/', views.acesso_negado, name='acesso_negado'),
+    url(r'^contato/', views.contato, name='contato'),
     url(r'^admin/', admin.site.urls),
 ]

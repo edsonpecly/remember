@@ -27,6 +27,12 @@
   <body>
 {% endblock %}
 {% block 2 %}
+{% if request.user.permissao == 1 %}
+<br>
+<div class="alert alert-warning">
+	<p>Seu pagamento ainda não foi identificado, pode ter ocorrido algum problema com o método escolhido. Caso tenha interesse, pode estar entranco em contato com o nosso <a href="{% url 'suporte' %}">SUPORTE</a> para esclarecimentos</p>
+</div>
+           	{% endif %}
 <h4>Home</h4>
 <div class="col-lg-6 col-md-6 col-sm-12">
 	<div class="showback">

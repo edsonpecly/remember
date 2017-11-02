@@ -42,14 +42,14 @@
        					{% endfor %}
                         <br>
                         Periodicidade:
-                        {% render_field form.periodicidade class="form-control"%}
+                        {% render_field form.periodicidade class="form-control" placeholder="Informe em dias. Ex.: Se for 3 meses, digite 180" %}
                     	{% for error in form.periodicidade.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}
                         {% if exibir_campo.s_valor == '1' %}
                         <br>
                         Valor:
-                        {% render_field form.valor class="form-control"%}
+                        {% render_field form.valor class="form-control" placeholder="Ex.: 29,90" %}
                     	{% for error in form.valor.errors %}
        					<span class="help-block">{{ error }}</span>
        					{% endfor %}

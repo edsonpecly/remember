@@ -110,6 +110,7 @@ class Profissional(models.Model):
     observacao = models.TextField('Observações', null=True, blank=True)
     serviços = models.CharField('Habilidades do Profissional', max_length=30, null=True, blank=True)
     horarios = models.CharField('Horários de Trabalho', max_length=30, null=True, blank=True)
+    comissao = models.PositiveIntegerField('Comissão', null=True, blank=True, default=0)
     slug = models.SlugField('Id url', null=True)
     created_at = models.DateTimeField('Cadastrado em', auto_now_add=True)
     update_at = models.DateTimeField('Atualizado em', auto_now=True)

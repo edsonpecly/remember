@@ -11,6 +11,8 @@ class VendaServico(models.Model):
     )
     servico = models.ForeignKey(Servico, verbose_name='Serviço', related_name='servico')
     data = models.DateField('Data de Realização', auto_now_add=True)
+    valor = models.DecimalField('Valor', max_digits=10, default=0, decimal_places=2, null=True, blank=True)
+    qtd = models.PositiveIntegerField('Quantidade', default=1, null=True, blank=True)
     periodicidade = models.PositiveIntegerField('Periodicidade', null=True, blank=True)
     retorno = models.DateField('Data de Retorno', null=True, blank=True)
     STATUS_CHOICE = (
@@ -45,6 +47,8 @@ class VendaProduto(models.Model):
         Profissional, verbose_name='Profissional', related_name='profissional2', blank=True, null=True
     )
     produto = models.ForeignKey(Produto, verbose_name='Produto', related_name='produto')
+    qtd = models.PositiveIntegerField('Quantidade', default=1, null=True, blank=True)
+    valor = models.DecimalField('Valor', max_digits=10, default=0, decimal_places=2, null=True, blank=True)
     data = models.DateField('Data de Realização', auto_now_add=True)
     periodicidade = models.PositiveIntegerField('Periodicidade', null=True, blank=True)
     retorno = models.DateField('retorno', null=True, blank=True)
@@ -61,7 +65,7 @@ class VendaProduto(models.Model):
     class Meta:
         verbose_name = 'Venda de Produto'
         verbose_name_plural = 'Vendas de Produtos'
-        ordering = ['-status', 'retorno']
+        ordering = ['-status', 'nova_compra']
 
     def __str__(self):
         return str(self.produto)
