@@ -78,31 +78,62 @@
         <div class="container">
 
           <div class="row">
+           <div class="col-sm-6 col-md-6 col-lg-6">
+              <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
+                <img src="{% static 'site/img/afiliado.png' %}" class="img-responsive" alt="" />
+
+              </div>
+            </div>
            <div class="col-sm-6 col-md-6 col-lg-6 slogan">
               <div class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-                <h4><strong>Sistema de Revendedores:</strong></h4>
-                <p><i class="fa fa-usd circled bg-skin float-left"></i><strong> Conheça como funciona nosso Sistema de Revendedores:</strong></p>
-                <p><div class="alert alert-success">Seu cadastro foi realizado com sucesso. Em até 24 horas entraremos em contato.</div></p>
-</div>
-            
-            	<li class="sub-menu">
-                      <a class="{{ aviso_retorno }}{{ aviso_aniversario }}{{ aviso_produto }}" href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>Pergunta?</span>
-                      </a>
-                      <ul class="sub">
-                          <li>Avisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos RetornoAvisos Retorno</li>
-                          {% if configs_sistema.c_produto == '1' %}
-                          <li class="{{ aviso_produto }}"><a  href="{% url 'aviso_produto' %}">Consumo de Produto</a></li>
-                          {% endif %}
-                          {% if exibir_campo.u_data_nascimento == '1' %}
-                          <li class="{{ aviso_aniversario }}"><a  href="{% url 'aviso_aniversario' %}">Avisos Aniversário</a></li>
-                          {% endif %}
-                      </ul>
-                  </li>
-            
+                <h4><strong> Tenha Uma Renda Extra:</strong></h4>
+                <p>Para cada novo cliente que se cadastrar e escolher você como vendedor, nós iremos te pagar, 20% de comissão de todo pagamento que ele realizar, durante todo tempo em que ele permanecer com o serviço ativo conosco.</p>
+<p>Não importa o plano de pagamento que ele escolha, iremos te pagar 20% por cada venda gerada com sucesso.</p>
+<p>Toda comissão será disponibilizada para saque, assim que for confirmado o pagamento do seu cliente, você poderá acompanhar seus ganhos e saques através do painel administrativo de sua conta.</p>
+<p></p>
+<p>Seus ganhos serão ilimitados!</p>  
+<p><a href="{% url 'adm:cadastro_vendedor' %}" class="btn btn-info btn-sm">Cadastre-se</a></p>          
             </div>
+            
           </div>
+          
+          <div class="col-md-12">
+          	<p></p>
+            <h4><strong>Possui Dúvidas?</strong></h4>
+			<p><strong>Veja algumas perguntas frequentes sobre nosso Sistema de Revendedores:</strong></p>
+          </div>
+          
+          <div class="col-md-12">
+          	<p></p>
+          	<h5><strong>O que é o Sistema de Revendedores?</strong></h5>
+            <p>O <strong>Sistema de Revendedores</strong> nada mais é que um programa de marketing, onde você pode participar como um afiliado. Afiliados recebem comissões por cada venda gerada para a Remember. Toda vez que um cliente se cadastrar, adiquirir um de nossos planos de assinatura, ter a transação aprovada, e escolher seu nome como vendedor, mesmo que não seja você que o tenha encaminhado até o site, nós da Remember vamos lhe pagar uma comissão de 20%.</p>
+            <p></p>
+          	<h5><strong>Como eu faço para participar do Sistema de Revendedores?</strong></h5>
+            <p>É muito fácil! É só acessar esse link: <a href="{% url 'adm:cadastro_vendedor' %}"><font color="#0000ff">www.sistemaremember.com.br/cadastro-vendedor/</font></a>, inserir corretamente seus dados e aguardar a verificação do seu cadastro pela nossa equipe.</p>
+            <h5><strong>Existe um período de carência para solicitar retiradas?</strong></h5>
+            <p>Não há período de carência para a solicitação de saques, só precisa ser respeitado o valor mínimo para tal. Assim que identificado o pagamento do seu indicado, nosso sistema creditará automaticamente em sua conta suas comissões.</p>
+            <h5><strong>Existe um saldo minímo para solicitação de retirada?</strong></h5>
+            <p>Sim. O saque minimo aceito pelo sistema é de R$ 50,00 (cinquenta reais), portanto, você precisa ter um valor igual ou maior para poder fazer sua retirada. Salvo nos casos de encerramento de contrato, onde todo dinheiro disponível é depositado para o vendedor independente se o valor for menor que o mínimo exigido.</p>
+            <h5><strong>Quanto custa para participar?</strong></h5>
+            <p>Nada! Não há custo para você se tornar um afiliado, e você também não tem obrigação de gerar vendas para nós. Se cadastre no programa e comece a ganhar quando preferir!</p>
+            <h5><strong>Quanto eu posso ganhar?</strong></h5>
+            <p>Não há limites para seus ganhos! Você só precisa trazer novos clientes através do nosso Programa de Afiliados e receber comissões de 20% sobre cada pagamento dos seus indicados que realizarem uma assinatura com a Remember! Não há limites de quantidade de vendas ou comissões que você pode fazer! Por favor, leia nossos <strong>termos de serviço do Sistema de Revendedores</strong> para não ter dúvidas.</p>
+            <h5><strong>Quando e com qual frequência serei pago?</strong></h5>
+            <p>Não há restrições de tempo quanto a isso. Você só precisa respeitar a quantia mínima para saque, ressaltando que cada afiliado poderá fazer 3 saques gratuítos por mês, a partir do 4° saque, será cobrado uma tarifa de R$ 5,00 (cinco reais) por saque realizado.</p>
+            <h5><strong>Como eu rastreio minhas vendas e comissões?</strong></h5>
+            <p>Através do seu painel de vendedor em nosso site. Se o seu cadastro for aprovado, você receberá um login e senha para acessar tais informações. </p>
+            
+            <h5><strong>Como vocês sabem qual afiliado pagar?</strong></h5>
+            <p>Na hora do cliente efetuar o cadastro em nosso sistema, existe um campo destinado para informar qual vendedor o atendeu, por isso, é muito importante na hora de fechar a venda, deixar claro para seu cliente que ele precisa indicar seu nome no cadastro</p>
+            
+            <div class="wow lightSpeedIn" data-wow-delay="0.1s">
+            	<div class="cta-btn">
+                	<h3><strong>Quer participar? Então</strong> &nbsp;&nbsp;<a href="{% url 'adm:cadastro_vendedor' %}" class="btn btn-info btn-lg">Cadastre-se</a></h3>
+				</div>
+            </div>
+            
+          </div>
+          
         </div>
       </div>
     </section>

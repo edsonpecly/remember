@@ -90,8 +90,7 @@
                       <h2><strong>Cadastro de Revendedor</strong></h2>
                       
                       <div class="col-lg-12">
-						<p>Faça parte do nosso Sistema de Revendedores. Esta é uma ótima oportunidade de complementar sua renda. Para entender melhor como funciona, você pode consultar a explicação<a href="{% url 'adm:sistema_revendedores' %}"><strong> clicando aqui</strong></a></p>
-                        <p>Antes de realizar o Cadastro, você precisa ler atentamente os <a href=""><strong>Termos do Sistema de Revendedores</strong></a>, pois ao clicar no Botão "Cadastrar-se", automaticamente você alega ter lido e concordado com tal termo.</p>
+						<p>Antes de realizar o Cadastro, você precisa ler atentamente os <a href=""><strong>Termos do Sistema de Revendedores</strong></a>, pois é necessário concordar com o mesmo para poder participar do nosso programa.</p>
                 	  </div>
                       
            			  <div class="col-md-8">
@@ -123,7 +122,7 @@
                             <span class="help-block">{{ error }}</span>
                             {% endfor %}
                             <br>
-                            {% render_field form.termos class="forn-control" %} <font color="#000000"> Confirmo que li e estou de acordo com os <strong>Termos do Sistema de Revendedores</strong></font>
+                            {% render_field form.termos class="forn-control" %} <font color="#000000"> Confirmo que li e estou de acordo com os <strong><a href="">Termos do Sistema de Revendedores</a></strong></font>
                             {% for error in form.termos.errors %}
                             <span class="help-block">{{ error }}</span>
                             {% endfor %}
